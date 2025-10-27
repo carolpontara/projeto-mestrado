@@ -1,0 +1,1 @@
+-- Sem DB necessário no MVP, este arquivo é placeholder se você quiser expandir.
