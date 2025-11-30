@@ -47,3 +47,21 @@ def build_advice(text: str, m: Metrics):
     if m.dois == 0:
         tips.append("Inclua DOIs nas referências quando disponíveis.")
     return tips
+
+def analyze_with_spacy(text: str):
+    doc = nlp(text)
+
+    entities = [(ent.text, ent.label_) for ent in doc.ents]
+
+    keywords = [
+        token.lemma_.lower()
+        for token in doc
+        if token.is_alpha and not token.is_stop
+    ]
+
+    return {
+        "entities": entities,
+        "keywords": keywords[:30],
+        "num_entities": len(entities),
+        "num_unique_keywords": len(set(keywords)),
+    }
