@@ -25,6 +25,8 @@ def _sanitize_text(text: str) -> str:
     text = text[:_MAX_TEXT_CHARS]
     # Remove sequences that look like prompt-injection delimiters
     text = text.replace('"""', " ").replace("```", " ")
+    # Remove the actual boundary markers used in the prompt
+    text = text.replace("--- INÍCIO DO ARTIGO ---", " ").replace("--- FIM DO ARTIGO ---", " ")
     return text
 
 
@@ -38,7 +40,10 @@ def _extract_json(raw: str) -> dict:
         # Try to find a JSON object in the response
         match = re.search(r"\{[\s\S]*\}", cleaned)
         if match:
-            return json.loads(match.group())
+            try:
+                return json.loads(match.group())
+            except json.JSONDecodeError:
+                pass
         logger.error("LLM returned non-JSON response: %s", cleaned[:200])
         raise ValueError("A resposta do modelo não é um JSON válido.")
 
