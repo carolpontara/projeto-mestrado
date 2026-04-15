@@ -1,8 +1,9 @@
+import os
 import streamlit as st, requests, urllib.parse
 
 st.title("Avaliador de Artigos – PDF")
 
-default_api = "http://127.0.0.1:8000/analyze"
+default_api = os.environ.get("API_URL", "http://127.0.0.1:8000/analyze")
 api_url = st.text_input("URL da API (endpoint /analyze)", default_api)
 pdf = st.file_uploader("Envie seu PDF", type=["pdf"])
 

@@ -1,0 +1,50 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+env:
+  SPACY_MODEL: pt_core_news_sm
+
+jobs:
+  lint-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          python -m spacy download ${{ env.SPACY_MODEL }}
+
+      - name: Lint with ruff
+        run: |
+          pip install ruff
+          ruff check .
+
+      - name: Validate Docker build
+        run: |
+          docker compose config --quiet
+
+      - name: Check .env.example is in sync
+        run: |
+          # Ensure every env var referenced in docker-compose.yml has a
+          # matching entry in .env.example
+          for var in $(grep -oP '\$\{?\K[A-Z_]+' docker-compose.yml | sort -u); do
+            if ! grep -q "^${var}=" .env.example; then
+              echo "ERROR: $var is used in docker-compose.yml but missing from .env.example"
+              exit 1
+            fi
+          done
+          echo "All docker-compose env vars are documented in .env.example"

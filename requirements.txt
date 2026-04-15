@@ -5,3 +5,6 @@ python-multipart
 PyMuPDF
 textstat
 spacy
+streamlit
+requests
+google-genai

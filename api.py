@@ -1,7 +1,12 @@
+import os
+
 from fastapi import FastAPI, UploadFile, File, HTTPException
 from fastapi.responses import JSONResponse
 from analyzer import analyze_pdf
 from analyzer_llm import analyze_llm
+
+API_HOST = os.environ.get("API_HOST", "0.0.0.0")
+API_PORT = int(os.environ.get("API_PORT", "8000"))
 
 app = FastAPI(title="Avaliador de Artigos (PDF)")
 
@@ -13,7 +18,7 @@ def health():
 def analyze_get_help():
     return {
         "message": "Use POST multipart/form-data em /analyze com o campo 'file' contendo o PDF.",
-        "example_curl": 'curl -X POST -F "file=@meu.pdf" http://127.0.0.1:8000/analyze'
+        "example_curl": f'curl -X POST -F "file=@meu.pdf" http://{API_HOST}:{API_PORT}/analyze'
     }
 
 @app.post("/analyze_spacy")

@@ -18,7 +18,7 @@ def analyze_llm(file_bytes: bytes) -> dict:
     \"\"\"{text}\"\"\"
     """
 
-    client = genai.Client(api_key=environ['api_key_llm'])
+    client = genai.Client(api_key=environ["API_KEY_LLM"])
     response = client.models.generate_content(
     model='gemini-2.5-flash',
     contents=prompt
