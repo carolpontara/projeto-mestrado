@@ -1,7 +1,10 @@
-fastapi
-uvicorn[standard]
-pydantic
-python-multipart
-PyMuPDF
-textstat
-spacy
+fastapi>=0.115,<1
+uvicorn[standard]>=0.34,<1
+pydantic>=2.10,<3
+python-multipart>=0.0.18,<1
+PyMuPDF>=1.25,<2
+textstat>=0.7.4,<1
+spacy>=3.8,<4
+google-genai>=1.12,<2
+streamlit>=1.41,<2
+requests>=2.32,<3
