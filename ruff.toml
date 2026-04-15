@@ -1,0 +1,5 @@
+[lint]
+ignore = [
+    "E401",  # Multiple imports on one line (pre-existing in app_streamlit.py)
+    "E741",  # Ambiguous variable name (pre-existing in rules.py)
+]
