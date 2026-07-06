@@ -81,7 +81,7 @@
 \titulo{Fed-IDS Privado: Auditoria e Mitigação de Membership Inference em Aprendizado Federado para Detecção de Intrusões}
 \autor{Ana Caroline Silva Pontara}
 \local{Bauru}
-\data{Novembro/2025}
+\data{2026}
 \orientador{Prof. PhD. Kelton Augusto Pontara da Costa}
 \instituicao{%
   Universidade Estadual Paulista ``Júlio de Mesquita Filho''
@@ -89,8 +89,8 @@
   Instituto de Biociências, Letras e Ciências Exatas
   \par
   Programa de Pós-Graduação em Ciência da Computação}
-\tipotrabalho{Monografia}
-\preambulo{Revisão da Literatura referente à disciplina de Estudos Especiais do Programa de Pós-Graduação em Ciência da Computação da Universidade Estadual Paulista ``Júlio de Mesquita Filho'', Instituto de Biociências, Letras e Ciências Exatas, Campus Bauru.}
+\tipotrabalho{Dissertação (Mestrado)}
+\preambulo{Dissertação apresentada ao Programa de Pós-Graduação em Ciência da Computação da Universidade Estadual Paulista ``Júlio de Mesquita Filho'', Instituto de Biociências, Letras e Ciências Exatas, Campus Bauru, como requisito parcial para a obtenção do título de Mestre em Ciência da Computação.}
 
 
 % --------------------------------------------------------
@@ -367,7 +367,7 @@ O avanço do aprendizado de máquina tem impulsionado sua adoção em domínios 
 
 Nesse contexto, surgiu o \textit{Federated Learning}, apresentado por McMahan et al. na \textit{Artificial Intelligence and Statistics} (AISTATS 2017), como um paradigma que permite o treinamento colaborativo de modelos em ambientes distribuídos, mantendo os dados nos dispositivos locais e transmitindo apenas parâmetros ou gradientes ao servidor agregador \cite{mcmahan2017fedavg}. Apesar de representar um avanço importante, estudos recentes indicam que o \textit{Federated Learning} não é imune a vulnerabilidades, destacando-se os \textit{Membership Inference Attacks}, introduzidos por Shokri et al. no \textit{IEEE Symposium on Security and Privacy} (2017), que permitem inferir se uma determinada instância de dado foi utilizada no treinamento de um modelo \cite{shokri2017mia}.
 
-Na área de cibersegurança, a combinação entre \textit{Intrusion Detection Systems} e aprendizado federado tem dado origem aos \textit{Federated Intrusion Detection Systems} (Fed-IDS). Tais arquiteturas possibilitam colaboração entre diferentes domínios sem necessidade de centralizar informações sensíveis, mas ainda enfrentam desafios de privacidade e segurança \cite{hernandez2023surveyfedids}.
+Na área de cibersegurança, a combinação entre \textit{Intrusion Detection Systems} e aprendizado federado tem dado origem aos Fed-IDS. Tais arquiteturas possibilitam colaboração entre diferentes domínios sem necessidade de centralizar informações sensíveis, mas ainda enfrentam desafios de privacidade e segurança \cite{hernandez2023surveyfedids}.
 
 Para enfrentar esses riscos, têm sido propostas defesas híbridas, que combinam mecanismos como privacidade diferencial, regularização de modelos e compressão de gradientes. O trabalho seminal de Abadi et al., publicado no ACM Conference on Computer and Communications Security (CCS 2016), apresentou o \textit{Differential Privacy Stochastic Gradient Descent} (DP-SGD), marco inicial para técnicas modernas de mitigação \cite{abadi2016dpsgd}.
 
@@ -380,44 +380,54 @@ trabalhos correlatos que fundamentam esta pesquisa.
 
 O processo foi conduzido com base nas diretrizes metodológicas propostas por
 Kitchenham e Charters (2007) e Biolchini et al. (2005), amplamente utilizadas em
-Engenharia de Software, sendo aqui adaptadas ao contexto de \textit{Federated Learning} (FL),
-\textit{Intrusion Detection Systems} (IDS) e ataques de privacidade, em especial \textit{Membership
-Inference Attacks} (MIA).
+Engenharia de Software, sendo aqui adaptadas ao contexto de \textit{Federated Learning},
+\textit{Intrusion Detection Systems} e ataques de privacidade, em especial \textit{Membership
+Inference Attacks}. A estruturação do protocolo seguiu os princípios do \textit{Preferred Reporting Items for Systematic Reviews and Meta-Analyses} (PRISMA)~\cite{page2021prisma} e a formulação das questões de pesquisa utilizou o arcabouço PICOC~\cite{petticrew2006systematic}.
 
-\subsection{Etapa 1 -- Planejamento}
+\subsection{Definição do PICOC}
 
-A etapa de planejamento teve como propósito estruturar o processo de busca e seleção
-dos estudos primários.
+Para delimitar o escopo da pesquisa e orientar a construção da estratégia de busca, foi utilizado o modelo PICOC (\textit{Population, Intervention, Comparison, Outcome, Context}), conforme recomendado por Petticrew e Roberts (2006)~\cite{petticrew2006systematic}. A Tabela~\ref{tab:picoc} apresenta os elementos definidos.
 
-\subsubsection{Identificação de parâmetros de busca}
+\begin{table}[H]
+\centering
+\caption{Estruturação da revisão segundo o arcabouço PICOC.}
+\label{tab:picoc}
+\begin{tabular}{p{3cm} p{10cm}}
+\hline
+\textbf{Elemento} & \textbf{Definição} \\
+\hline
+\textit{Population} & Modelos de aprendizado de máquina treinados de forma federada para detecção de intrusões em redes (Fed-IDS). \\
+\textit{Intervention} & Ataques de inferência de pertencimento (\textit{Membership Inference Attacks}) e mecanismos de defesa híbridos (Privacidade Diferencial, regularização, compressão de gradientes). \\
+\textit{Comparison} & Defesas isoladas versus defesas combinadas (híbridas); cenários IID versus \textit{non-IID}; diferentes algoritmos de agregação federada. \\
+\textit{Outcome} & Quantificação do \textit{trade-off} entre utilidade do modelo (acurácia de detecção) e nível de privacidade (resistência a MIA), medido por métricas como AUC-ROC, TPR@FPR, \textit{advantage} e F1-\textit{score}. \\
+\textit{Context} & Ambientes distribuídos de cibersegurança com dados heterogêneos (\textit{non-IID}), incluindo redes IoT, infraestruturas de borda e tráfego corporativo. \\
+\hline
+\end{tabular}
+\end{table}
 
-As palavras-chave foram definidas de acordo com o escopo da dissertação, abrangendo
-termos relacionados a aprendizado federado, detecção de intrusões e ataques de inferência
-de associação, tais como:
+Os elementos definidos por meio do PICOC foram utilizados como base para a elaboração das questões de pesquisa e para a identificação dos conceitos centrais investigados nesta revisão, concentrando a análise nos desafios associados à vulnerabilidade de privacidade e à sua mitigação em sistemas de detecção de intrusão treinados de forma federada.
+
+\subsection{Questões de Pesquisa}
+
+Com base nos objetivos desta Revisão Sistemática da Literatura, foram definidas duas questões de pesquisa (QP), derivadas diretamente dos elementos do PICOC, que orientam a identificação e a análise dos trabalhos correlatos:
 
 \begin{itemize}
-    \item \textit{Federated Learning};
-    \item \textit{Intrusion Detection System} (IDS);
-    \item \textit{Federated Intrusion Detection System} (Fed-IDS);
-    \item \textit{Membership Inference Attacks} (MIA);
-    \item \textit{Differential Privacy} e mecanismos de mitigação.
+    \item \textbf{QP1. Qual a vulnerabilidade de sistemas Fed-IDS a ataques de inferência de pertencimento sob diferentes configurações de agregação e heterogeneidade de dados?} \\
+    Esta questão investiga em que medida os artefatos trocados durante o treinamento federado (parâmetros e gradientes) expõem informação de pertencimento, considerando o impacto de diferentes algoritmos de agregação (FedAvg, FedProx, SCAFFOLD, FedOpt) e de cenários de dados heterogêneos (\textit{non-IID}) sobre o risco de privacidade.
+
+    \item \textbf{QP2. Como defesas híbridas (DP-SGD combinado com regularização e compressão de gradientes) afetam o \textit{trade-off} entre utilidade e privacidade em Fed-IDS?} \\
+    Esta questão busca compreender como a combinação de mecanismos de defesa altera o equilíbrio entre a capacidade de detecção de intrusões (utilidade) e a resistência a ataques de inferência (privacidade), em comparação com a aplicação de defesas isoladas.
 \end{itemize}
 
-O período delimitado para a busca compreendeu os anos de 2015 a 2025, de forma a incluir
-desde trabalhos seminais até estudos recentes em Fed-IDS e privacidade.
+\subsection{Estratégia de Busca}
 
-\subsubsection{Definição das queries}
+A estratégia de busca foi definida a partir dos elementos identificados no modelo PICOC e das questões de pesquisa estabelecidas para esta revisão. O objetivo foi recuperar estudos relacionados a aprendizado federado, detecção de intrusões e ataques de inferência de pertencimento, tanto em ambientes federados quanto em modelos de linguagem de grande escala.
 
-Com o objetivo de garantir reprodutibilidade e alta precisão, foram elaboradas duas queries
-principais, altamente específicas, aplicadas nas bases selecionadas.
+Ao contrário de domínios em que a terminologia ainda se encontra em consolidação, os conceitos centrais desta revisão (\textit{Federated Learning}, \textit{Intrusion Detection System}, \textit{Membership Inference Attack} e \textit{Differential Privacy}) apresentam terminologia relativamente padronizada na literatura. Dessa forma, optou-se por construir \textit{strings} de busca específicas e de alta precisão, combinando os termos fundamentais do domínio por meio de operadores booleanos, de modo a privilegiar a recuperação de trabalhos diretamente aderentes ao escopo e reduzir a triagem manual de estudos tangenciais. Os termos fundamentais que estruturaram as \textit{strings} foram \textit{Federated Learning}, \textit{Intrusion Detection System} (IDS), \textit{Federated Intrusion Detection System} (Fed-IDS), \textit{Membership Inference Attack} (MIA), \textit{Large Language Model} (LLM) e \textit{Differential Privacy} e demais mecanismos de mitigação.
 
-A Query 1 (Q1) foi projetada para recuperar estudos relacionados a sistemas de detecção de
-intrusão federados (Fed-IDS).
+A partir desses termos, foram elaboradas três \textit{queries} complementares. A \textit{Query} 1 (Q1) foi projetada para recuperar estudos relacionados a sistemas de detecção de intrusão federados (Fed-IDS). A \textit{Query} 2 (Q2) foi direcionada à identificação de trabalhos sobre \textit{Membership Inference Attacks} no contexto de \textit{Federated Learning}. A \textit{Query} 3 (Q3) foi elaborada para recuperar trabalhos sobre ataques de inferência de pertencimento aplicados especificamente a modelos de linguagem de grande escala (\textit{Large Language Models}), incluindo técnicas de auditoria de privacidade e detecção de dados de treinamento, em suporte ao capítulo de auditoria multidimensional desenvolvido nesta dissertação. O período delimitado para a busca compreendeu os anos de 2015 a 2025, de forma a incluir desde trabalhos seminais até estudos recentes em Fed-IDS e privacidade.
 
-A \textit{Query} 2 (Q2) foi direcionada à identificação de trabalhos sobre \textit{Membership Inference Attacks}
-no contexto de \textit{Federated Learning}.
-
-As strings finais utilizadas são apresentadas na Tabela~\ref{tab:queries_strings}.
+As \textit{strings} finais utilizadas são apresentadas na Tabela~\ref{tab:queries_strings}.
 
 \begin{table}[H]
 \centering
@@ -436,66 +446,17 @@ Q2 &
 ("federated learning") AND ("membership inference attack" OR
 "membership inference attacks") \\
 \hline
-\end{tabular}
-\end{table}
-
-\subsubsection{Bases científicas selecionadas}
-
-As buscas foram realizadas em bases científicas de alto impacto na área de Ciência
-da Computação e Segurança Cibernética:
-
-\begin{itemize}
-    \item IEEE Xplore Digital Library;
-    \item ACM Digital Library;
-    \item Wiley Online Library;
-    \item MDPI;
-    \item SpringerLink.
-\end{itemize}
-
-Essas bases foram escolhidas por concentrarem a maior parte das publicações relevantes em
-\textit{Federated Learning}, \textit{Intrusion Detection} e ataques de privacidade.
-
-\subsection{Etapa 2 -- Execução}
-
-A execução consistiu na aplicação das queries definidas na etapa de planejamento nas bases
-científicas selecionadas, considerando o período de publicação entre 2015 e 2025.
-
-A primeira \textit{query} (Q1), voltada à identificação de estudos relacionados a \textit{Federated Intrusion
-Detection Systems} (Fed-IDS), retornou 47 resultados na IEEE Xplore, 72 na Wiley, 12 na MDPI,
-8 na ACM e 176 na SpringerLink.
-
-Em seguida, a segunda \textit{query} (Q2), direcionada à recuperação de trabalhos sobre \textit{Membership}
-\textit{Inference Attacks} (MIA) no contexto de \textit{Federated Learning}, resultou em 42 estudos na IEEE
-Xplore, 32 na Wiley, 10 na MDPI, 17 na ACM e 15 na SpringerLink.
-
-Os resultados obtidos são sumarizados na Tabela~\ref{tab:queries_resultados}.
-
-\begin{table}[H]
-\centering
-\caption{Resultados obtidos com as queries aplicadas nas bases científicas.}
-\label{tab:queries_resultados}
-\begin{tabular}{lccc}
-\hline
-\textbf{Base} & \textbf{Q1 (Fed-IDS)} & \textbf{Q2 (MIA em FL)} & \textbf{Total bruto} \\
-\hline
-IEEE Xplore & 47 & 42 & 89 \\
-ACM Digital Library & 8 & 17 & 25 \\
-Wiley Online Library & 72 & 32 & 104 \\
-MDPI & 12 & 10 & 22 \\
-SpringerLink & 176 & 15 & 191 \\
-\hline
-\textbf{Total geral} & -- & -- & \textbf{431} \\
+Q3 &
+("membership inference attack" OR "membership inference") AND
+("language model" OR "large language model" OR LLM) AND
+("privacy" OR "privacy auditing" OR "training data detection") \\
 \hline
 \end{tabular}
 \end{table}
 
-Ao todo, as buscas recuperaram 431 artigos brutos. Posteriormente, após a unificação dos
-resultados, remoção de duplicados e aplicação dos critérios de inclusão e exclusão,
-25 estudos foram selecionados para compor a base final de trabalhos correlatos.
+\subsubsection{Aplicação das \textit{queries} por plataforma}
 
-\subsubsection{Aplicação das Queries por Plataforma}
-
-Embora as queries Q1 e Q2 tenham sido definidas como strings principais da revisão,
+Embora as \textit{queries} Q1, Q2 e Q3 tenham sido definidas como \textit{strings} principais da revisão,
 cada base científica apresenta particularidades em seu mecanismo de busca. Dessa forma,
 foi necessário adaptar a sintaxe e os campos de pesquisa (título, resumo ou metadados)
 para garantir maior precisão e reprodutibilidade.
@@ -520,6 +481,9 @@ All Metadata &
 
 & &
 (Q2) ("federated learning") AND ("membership inference attack" OR "membership inference attacks") \\
+
+& &
+(Q3) ("membership inference attack" OR "membership inference") AND ("language model" OR "large language model" OR LLM) AND ("privacy" OR "privacy auditing" OR "training data detection") \\
 \hline
 
 ACM Digital Library &
@@ -530,6 +494,9 @@ AND Abstract:("intrusion detection system") \\
 & &
 (Q2) Abstract:("federated learning")
 AND Abstract:("membership inference attack") \\
+
+& &
+(Q3) AllField:("membership inference" AND "language model" AND "privacy") \\
 \hline
 
 Wiley Online Library &
@@ -539,6 +506,9 @@ AND ("intrusion detection system") \\
 
 & &
 (Q2) "federated learning" AND "membership inference attack" \\
+
+& &
+(Q3) "membership inference" AND "language model" AND "privacy" \\
 \hline
 
 MDPI &
@@ -548,6 +518,9 @@ AND ("intrusion detection system") \\
 
 & &
 (Q2) "federated learning" AND "membership inference attack" \\
+
+& &
+(Q3) "membership inference" "language model" "privacy" \\
 \hline
 
 SpringerLink &
@@ -558,6 +531,9 @@ AND ("network intrusion detection") \\
 & &
 (Q2) "federated learning" AND "membership inference attack"
 AND ("privacy attack" OR adversary) \\
+
+& &
+(Q3) "membership inference" "language model" "privacy" \\
 \hline
 
 \end{tabular}
@@ -567,14 +543,9 @@ Em todas as plataformas, foi aplicado o filtro temporal de publicação entre 20
 além da restrição para artigos revisados por pares (periódicos e conferências) sempre que
 disponível.
 
-\subsection{Etapa 3 -- Seleção e Mineração dos Estudos}
+\subsection{Critérios de Inclusão e Exclusão}
 
-Após a recuperação inicial de 431 estudos, foi aplicado um processo sistemático de triagem
-e refinamento em múltiplas fases, conforme recomendado por Kitchenham e Charters (2007).
-
-\subsubsection{Critérios de Inclusão e Exclusão}
-
-Os critérios formais aplicados são apresentados na Tabela~\ref{tab:criterios}.
+Após a execução das buscas nas bases de dados selecionadas, os estudos recuperados foram submetidos a um processo de triagem baseado em critérios de inclusão (CI) e exclusão (CE) previamente definidos. A adoção desses critérios teve como objetivo garantir a seleção de estudos relevantes para responder às questões de pesquisa, bem como assegurar a qualidade e a consistência do conjunto final de trabalhos analisados. Inicialmente, os títulos, resumos e palavras-chave dos estudos recuperados foram analisados para verificar sua aderência ao tema da revisão; em seguida, os trabalhos potencialmente relevantes foram submetidos à leitura completa para confirmação de sua elegibilidade. Os critérios formais aplicados são apresentados na Tabela~\ref{tab:criterios}.
 
 \begin{table}[H]
 \centering
@@ -608,10 +579,58 @@ CE7 & Estudos que abordam exclusivamente \textit{Federated Learning} para domín
 
 A identificação e remoção de artigos duplicados foi conduzida em duas etapas. Na primeira, realizou-se a comparação automática dos registros exportados de cada base por meio do campo DOI (\textit{Digital Object Identifier}), o que permitiu eliminar as ocorrências idênticas presentes em mais de uma plataforma. Na segunda etapa, procedeu-se a uma verificação manual dos registros remanescentes, comparando título, lista de autores e ano de publicação, a fim de detectar versões preliminares de um mesmo estudo (por exemplo, um artigo de conferência posteriormente expandido em periódico). Nesses casos, apenas a versão mais completa e atualizada foi mantida na base de análise.
 
+\subsection{Fontes de Dados}
+
+A busca bibliográfica foi realizada em cinco bases de dados amplamente reconhecidas pela comunidade científica das áreas de Ciência da Computação, Engenharia de Software, Inteligência Artificial e Segurança da Informação. A seleção dessas bases teve como objetivo garantir ampla cobertura da literatura relevante, contemplando periódicos e conferências de elevado impacto acadêmico. As bases de dados utilizadas foram:
+
+\begin{itemize}
+    \item IEEE Xplore Digital Library;
+    \item ACM Digital Library;
+    \item Wiley Online Library;
+    \item MDPI;
+    \item SpringerLink.
+\end{itemize}
+
+A IEEE Xplore e a ACM Digital Library foram selecionadas por concentrarem grande volume de publicações relacionadas a \textit{Federated Learning}, sistemas distribuídos, inteligência artificial e segurança computacional. A Wiley, a MDPI e a SpringerLink foram incluídas devido à abrangência de periódicos científicos em áreas correlatas, ampliando a cobertura da busca e permitindo identificar estudos potencialmente não recuperados nas demais fontes.
+
+A aplicação das três \textit{queries} nas cinco bases, considerando o período de publicação entre 2015 e 2025, resultou na identificação inicial de 709 registros. A distribuição dos estudos recuperados por base de dados e por \textit{query} é apresentada na Tabela~\ref{tab:queries_resultados}. A primeira \textit{query} (Q1), voltada à identificação de estudos relacionados a Fed-IDS, retornou 49 resultados na IEEE Xplore, 72 na Wiley, 70 na MDPI, 8 na ACM e 4 na SpringerLink. A segunda \textit{query} (Q2), direcionada à recuperação de trabalhos sobre MIA no contexto de \textit{Federated Learning}, resultou em 128 estudos na IEEE Xplore, 32 na Wiley, 13 na MDPI, 17 na ACM e 149 na SpringerLink. Por fim, a terceira \textit{query} (Q3), elaborada para recuperar trabalhos sobre ataques de inferência de pertencimento aplicados a modelos de linguagem de grande escala, retornou 35 resultados na IEEE Xplore, 8 na Wiley, 5 na MDPI, 22 na ACM e 97 na SpringerLink.
+
+\begin{table}[H]
+\centering
+\caption{Distribuição dos estudos recuperados por base de dados e por \textit{query}.}
+\label{tab:queries_resultados}
+\begin{tabular}{lcccc}
+\hline
+\textbf{Base} & \textbf{Q1 (Fed-IDS)} & \textbf{Q2 (MIA em FL)} & \textbf{Q3 (MIA em LLMs)} & \textbf{Total bruto} \\
+\hline
+IEEE Xplore & 49 & 128 & 35 & 212 \\
+ACM Digital Library & 8 & 17 & 22 & 47 \\
+Wiley Online Library & 72 & 32 & 8 & 112 \\
+MDPI & 70 & 13 & 5 & 88 \\
+SpringerLink & 4 & 149 & 97 & 250 \\
+\hline
+\textbf{Total geral} & \textbf{203} & \textbf{339} & \textbf{167} & \textbf{709} \\
+\hline
+\end{tabular}
+\end{table}
+
+\subsection{Processo de Seleção dos Estudos}
+
+O fluxo completo de identificação, triagem, elegibilidade e inclusão dos estudos foi conduzido de acordo com as recomendações do PRISMA 2020~\cite{page2021prisma}, sendo os resultados apresentados por meio do fluxograma correspondente (Figura~\ref{fig:prisma}).
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\linewidth]{Figura-PRISMA.png}
+    \caption{Fluxo de identificação, triagem e seleção dos estudos conforme as diretrizes PRISMA. Fonte: elaborado pela autora com base em \cite{page2021prisma}.}
+    \label{fig:prisma}
+\end{figure}
+
+Após a recuperação dos registros, os resultados provenientes das diferentes bases foram consolidados e submetidos à identificação de registros duplicados. Em seguida, foi realizada a triagem por título, resumo e palavras-chave, seguida da avaliação de elegibilidade em texto completo, até a obtenção do conjunto final de estudos incluídos na síntese qualitativa.
+
 \subsubsection{\textit{Pipeline} reprodutível do processo de seleção}
 
 A Tabela~\ref{tab:selecao_pipeline} sumariza quantitativamente o processo reprodutível que
-permitiu reduzir o conjunto inicial de 431 estudos até a seleção final de 25 artigos.
+permitiu reduzir o conjunto inicial de 709 estudos até a seleção final de 30 artigos.
 
 \begin{table}[H]
 \centering
@@ -621,27 +640,49 @@ permitiu reduzir o conjunto inicial de 431 estudos até a seleção final de 25 
 \hline
 \textbf{Etapa} & \textbf{Quantidade} & \textbf{Descrição} \\
 \hline
-Resultados brutos iniciais & 431 &
-Estudos recuperados após aplicação das queries Q1 e Q2 nas cinco bases. \\
+Resultados brutos iniciais & 709 &
+Estudos recuperados após aplicação das queries Q1, Q2 e Q3 nas cinco bases. \\
 \hline
-Remoção de duplicados & 357 &
+Remoção de duplicados & $\sim$580 &
 Duplicados eliminados via comparação de DOI, título, autores e ano de publicação. \\
 \hline
-Triagem por título e resumo & $\sim$110 &
+Triagem por título e resumo & $\sim$130 &
 Exclusão de estudos fora do escopo por meio dos critérios CE1, CE2, CE6 e CE7. \\
 \hline
-Avaliação em texto completo & $\sim$55 &
+Avaliação em texto completo & $\sim$60 &
 Leitura integral dos artigos restantes para aplicação rigorosa dos critérios CI/CE. \\
 \hline
-Estudos incluídos na revisão final & 25 &
+Estudos incluídos na revisão final & 30 &
 Trabalhos selecionados como base definitiva de estudos correlatos desta dissertação. \\
 \hline
 \end{tabular}
 \end{table}
 
+\subsubsection{Processo de curadoria e justificativa da seleção final}
+
+A redução de 709 estudos brutos para os 30 trabalhos finais seguiu um processo de curadoria estruturado em quatro fases, cada uma com critérios e justificativas específicas.
+
+Na primeira fase, a remoção de duplicados identificou artigos indexados em mais de uma base (por exemplo, trabalhos presentes simultaneamente na IEEE Xplore e na SpringerLink). A comparação por DOI eliminou as ocorrências idênticas, enquanto a verificação manual por título e autores detectou versões preliminares (artigos de conferência expandidos em periódicos), retendo apenas a versão mais completa.
+
+Na segunda fase, a triagem por título e resumo aplicou os critérios de exclusão de forma preliminar. Nessa etapa, foram descartados estudos que, embora retornados pelas \textit{queries}, tratavam de temas tangenciais: aplicações de \textit{Federated Learning} em saúde ou agricultura sem contribuição para detecção de intrusões (CE7), trabalhos focados em ataques adversariais sem conexão com inferência de pertencimento (CE2), publicações em idiomas distintos de inglês e português (CE6) e artigos de FL genérico sem relação com segurança (CE1). Essa filtragem reduziu o conjunto de aproximadamente 580 para cerca de 130 estudos.
+
+Na terceira fase, a leitura integral dos textos completos permitiu uma avaliação rigorosa da aderência aos critérios de inclusão. Os estudos retidos nessa etapa foram aqueles que contribuíam diretamente para ao menos um dos eixos da dissertação: (i) arquiteturas de Fed-IDS e algoritmos de agregação federada (CI3), cobrindo desde o trabalho fundacional de McMahan et al. até propostas recentes como F-BIDS e arquiteturas \textit{zero-trust}; (ii) formalização, evolução e avaliação de MIA (CI4), incluindo os marcos de Shokri et al., Nasr et al. e Carlini et al.; e (iii) mecanismos de defesa e mitigação de privacidade (CI5), abrangendo DP-SGD, compressão de gradientes e defesas híbridas.
+
+Na quarta fase, os aproximadamente 60 estudos remanescentes foram avaliados quanto à relevância, impacto e complementaridade. Priorizaram-se trabalhos seminais que introduziram conceitos fundamentais (FedAvg, MIA, DP-SGD, LiRA), revisões sistemáticas que consolidam o estado da arte (Hernandez-Ramos et al., Belenguer et al., Bai et al.) e propostas recentes que avançam a fronteira do conhecimento em defesas híbridas, cenários \textit{non-IID} e auditoria de privacidade em modelos de linguagem. Trabalhos redundantes, com contribuições incrementais ou restritos a cenários sem generalização, foram excluídos nessa etapa final, resultando nos 30 estudos que fundamentam esta dissertação.
+
+Os resultados do processo de seleção são resumidos a seguir:
+
+\begin{itemize}
+    \item Registros identificados nas bases de dados: 709;
+    \item Registros após remoção de duplicados: $\sim$580;
+    \item Registros após triagem por título e resumo: $\sim$130;
+    \item Estudos avaliados em texto completo: $\sim$60;
+    \item Estudos finais incluídos na revisão: 30.
+\end{itemize}
+
 \subsubsection{Estudos selecionados}
 
-A Tabela~\ref{tab:estudos_selecionados} apresenta os 25 estudos que compõem a base final da revisão, organizados cronologicamente. Cada entrada indica os autores, o ano de publicação, o título do trabalho e a \textit{query} responsável por sua recuperação.
+A Tabela~\ref{tab:estudos_selecionados} apresenta os 30 estudos que compõem a base final da revisão, organizados cronologicamente. Cada entrada indica os autores, o ano de publicação, o título do trabalho e a \textit{query} responsável por sua recuperação.
 
 \begin{table}[H]
 \centering
@@ -678,6 +719,11 @@ E22 & Javeed et al. & 2024 & \textit{Zero-Trust Federated Learning-Based Intrusi
 E23 & Wei et al. & 2024 & \textit{Gradient Sparsification for Efficient Wireless FL with Differential Privacy} & Q2 \\
 E24 & Belenguer et al. & 2025 & \textit{A Survey on the Use of Federated Learning for Intrusion Detection Systems} & Q1 \\
 E25 & Niu et al. & 2025 & \textit{Dual Defense: Combining Preemptive Exclusion and Knowledge Distillation to Mitigate MIA} & Q2 \\
+E26 & Carlini et al. & 2019 & \textit{The Secret Sharer: Evaluating and Testing Unintended Memorization in Neural Networks} & Q3 \\
+E27 & Song et al. & 2019 & \textit{Membership Inference Attacks against Sequence Generation Models} & Q3 \\
+E28 & Mattern et al. & 2023 & \textit{Membership Inference Attacks against Language Models via Neighbourhood Comparison} & Q3 \\
+E29 & Xie et al. & 2024 & \textit{ReCaLL: Membership Inference via Relative Conditional Log-Likelihoods} & Q3 \\
+E30 & Zhang et al. & 2025 & \textit{Min-K\%++: Improved Baseline for Detecting Pre-Training Data from Large Language Models} & Q3 \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -732,7 +778,7 @@ Como sistematizado na abrangente revisão de Bai et al.~\cite{bai2024survey}, os
 
 A resposta da comunidade científica à ameaça dos MIA resultou em um espectro de estratégias de defesa, cada uma operando sob um \textit{trade-off} distinto entre privacidade, utilidade e custo computacional.
 
-A abordagem mais formalmente robusta é a \textit{Privacidade Diferencial} (DP), cuja aplicação ao aprendizado profundo foi consolidada por Abadi et al.~\cite{abadi2016dpsgd}. Ao injetar ruído estatístico nos gradientes, a DP oferece garantias matemáticas de privacidade. Contudo, essa formalidade tem um custo: a degradação da acurácia do modelo. Bagdasaryan e Shmatikov~\cite{bagdasaryan2019dpimpact} demonstraram que este impacto é desigual, penalizando desproporcionalmente participantes com dados minoritários, uma questão crítica em cenários \textit{non-IID} típicos de Fed-IDS.
+A abordagem mais formalmente robusta é a \textit{Privacidade Diferencial}, cuja aplicação ao aprendizado profundo foi consolidada por Abadi et al.~\cite{abadi2016dpsgd}. Ao injetar ruído estatístico nos gradientes, a DP oferece garantias matemáticas de privacidade. Contudo, essa formalidade tem um custo: a degradação da acurácia do modelo. Bagdasaryan e Shmatikov~\cite{bagdasaryan2019dpimpact} demonstraram que este impacto é desigual, penalizando desproporcionalmente participantes com dados minoritários, uma questão crítica em cenários \textit{non-IID} típicos de Fed-IDS.
 
 Uma segunda categoria de defesas opera por meio de \textit{regularização e ofuscação}, visando produzir modelos que, por construção, sejam menos suscetíveis à memorização. Técnicas como a destilação de conhecimento (\textit{knowledge distillation})~\cite{mazzone2022kdmask} buscam amenizar a superfície de decisão do modelo, reduzindo o sinal explorável pelos ataques.
 
@@ -960,14 +1006,14 @@ da comunidade científica para desenvolver mecanismos de otimização e agregaç
 garantir robustez, eficiência estatística e estabilidade em cenários distribuídos reais.
 
 \section{Membership Inference Attacks}
-Os \textit{Membership Inference Attacks} (MIA) constituem uma classe de ataques de privacidade cujo objetivo é inferir se uma instância específica de dados integrou o conjunto de treinamento de um modelo. A relevância desse problema decorre do fato de que a mera capacidade de inferir a participação de um dado pode violar a privacidade de indivíduos e organizações, sobretudo em domínios sensíveis, como saúde, finanças e segurança. O trabalho seminal de Shokri et al., apresentado no \textit{IEEE Symposium on Security and Privacy} (2017), demonstrou a viabilidade prática de ataques de inferência de pertencimento em modelos supervisionados, inaugurando uma linha de pesquisa hoje consolidada \cite{shokri2017mia}. Pesquisas subsequentes analisaram a conexão entre \textit{overfitting} e risco de privacidade \cite{yeom2018privacyrisk}, propuseram ataques em cenários \textit{white-box} centralizados e federados \cite{nasr2019comprehensive}, e formalizaram novas estruturas de ataque, como a abordagem \textit{from first principles} \cite{carlini2022firstprinciples} e a exploração da trajetória de perda (\textit{loss trajectory}) ao longo do treinamento \cite{liu2022trajectory}. Estudos de síntese recentes reforçam a importância do tema e sistematizam resultados, ameaças e defesas \cite{bai2024survey}.
+Os MIA constituem uma classe de ataques de privacidade cujo objetivo é inferir se uma instância específica de dados integrou o conjunto de treinamento de um modelo. A relevância desse problema decorre do fato de que a mera capacidade de inferir a participação de um dado pode violar a privacidade de indivíduos e organizações, sobretudo em domínios sensíveis, como saúde, finanças e segurança. O trabalho seminal de Shokri et al., apresentado no \textit{IEEE Symposium on Security and Privacy} (2017), demonstrou a viabilidade prática de ataques de inferência de pertencimento em modelos supervisionados, inaugurando uma linha de pesquisa hoje consolidada \cite{shokri2017mia}. Pesquisas subsequentes analisaram a conexão entre \textit{overfitting} e risco de privacidade \cite{yeom2018privacyrisk}, propuseram ataques em cenários \textit{white-box} centralizados e federados \cite{nasr2019comprehensive}, e formalizaram novas estruturas de ataque, como a abordagem \textit{from first principles} \cite{carlini2022firstprinciples} e a exploração da trajetória de perda (\textit{loss trajectory}) ao longo do treinamento \cite{liu2022trajectory}. Estudos de síntese recentes reforçam a importância do tema e sistematizam resultados, ameaças e defesas \cite{bai2024survey}.
 
 
 A capacidade de inferir a participação de amostras no treinamento expõe sérias implicações de segurança e privacidade, sobretudo em contextos que envolvem dados sensíveis, como registros médicos, informações financeiras ou bases de identificação pessoal. A vulnerabilidade decorre principalmente do fenômeno de \textit{overfitting}, no qual o modelo tende a memorizar exemplos de treinamento em vez de apenas aprender padrões generalizáveis, aumentando o risco de vazamento de informações.
 
 \subsection{Conceito e Funcionamento dos \textit{Membership Inference Attacks}}
 
-Os \textit{Membership Inference Attacks} (MIA) representam uma das classes mais estudadas de ataques de privacidade em aprendizado de máquina, tendo como objetivo determinar se uma instância específica de dado foi utilizada no processo de treinamento de um modelo. A relevância desse problema está no fato de que, mesmo sem acesso direto aos dados brutos, um adversário capaz de inferir a participação de um exemplo em um conjunto de treinamento já compromete a privacidade dos indivíduos envolvidos, expondo informações potencialmente sensíveis. 
+Os MIA representam uma das classes mais estudadas de ataques de privacidade em aprendizado de máquina, tendo como objetivo determinar se uma instância específica de dado foi utilizada no processo de treinamento de um modelo. A relevância desse problema está no fato de que, mesmo sem acesso direto aos dados brutos, um adversário capaz de inferir a participação de um exemplo em um conjunto de treinamento já compromete a privacidade dos indivíduos envolvidos, expondo informações potencialmente sensíveis. 
 
 O conceito foi formalizado por Shokri et al., no \textit{IEEE Symposium on Security and Privacy (2017)} \cite{shokri2017mia}, em um trabalho seminal que demonstrou a vulnerabilidade de modelos de classificação supervisionada a esse tipo de ataque. A intuição explorada consiste na diferença de comportamento entre as previsões realizadas sobre exemplos de treino e exemplos não vistos. Modelos com sobreajuste (\textit{overfitting}), em particular, tendem a memorizar instâncias específicas, apresentando maior confiança ou padrões de saída distintos quando confrontados com dados utilizados no treinamento.
 
@@ -1105,18 +1151,18 @@ Em síntese, a avaliação dos ataques de inferência de pertencimento não deve
 \subsection{Intrusion Detection Systems (IDS) e Fed-IDS}
 \label{subsec:ids_fedids}
 
-Os \textit{Intrusion Detection Systems} (IDS) constituem um dos principais mecanismos de defesa em cibersegurança, sendo responsáveis por monitorar tráfego de rede, identificar comportamentos anômalos e detectar padrões característicos de ataques. Tradicionalmente, os IDS assumem arquiteturas centralizadas, em que dados de diferentes pontos da rede são coletados em um servidor central e processados por algoritmos de detecção baseados em assinaturas ou em modelos de aprendizado de máquina. Apesar da eficácia, esse paradigma centralizado apresenta limitações em termos de escalabilidade, latência e, sobretudo, privacidade, já que a centralização de grandes volumes de tráfego sensível aumenta a superfície de ataque e o risco de exposição de dados confidenciais.
+Os IDS constituem um dos principais mecanismos de defesa em cibersegurança, sendo responsáveis por monitorar tráfego de rede, identificar comportamentos anômalos e detectar padrões característicos de ataques. Tradicionalmente, os IDS assumem arquiteturas centralizadas, em que dados de diferentes pontos da rede são coletados em um servidor central e processados por algoritmos de detecção baseados em assinaturas ou em modelos de aprendizado de máquina. Apesar da eficácia, esse paradigma centralizado apresenta limitações em termos de escalabilidade, latência e, sobretudo, privacidade, já que a centralização de grandes volumes de tráfego sensível aumenta a superfície de ataque e o risco de exposição de dados confidenciais.
 
 O avanço de tecnologias distribuídas e de ambientes heterogêneos, como redes de \textit{Internet of Things} (IoT) e sistemas industriais inteligentes, trouxe novos desafios para os IDS. Nesses contextos, a coleta de dados ocorre de forma descentralizada, em dispositivos com capacidades computacionais limitadas, e frequentemente sob restrições de comunicação. Essa distribuição de dados, somada à necessidade de preservação de privacidade, inviabiliza a centralização completa das informações e demanda abordagens mais flexíveis e seguras.
 
-Nesse cenário, o Aprendizado Federado (FL) surge como alternativa promissora, permitindo a construção de modelos colaborativos de detecção de intrusões sem que os dados brutos precisem ser compartilhados. Em um \textit{Federated Intrusion Detection System} (Fed-IDS), cada cliente  por exemplo, um roteador, sensor IoT ou servidor de borda  treina localmente um modelo com seus próprios registros de tráfego e envia apenas parâmetros ou gradientes ao servidor central. Esse servidor, por sua vez, realiza a agregação das atualizações e redistribui o modelo global atualizado a todos os participantes. Dessa forma, preserva-se a privacidade dos dados de rede, ao mesmo tempo em que se mantém a colaboração entre múltiplos domínios administrativos.
+Nesse cenário, o FL surge como alternativa promissora, permitindo a construção de modelos colaborativos de detecção de intrusões sem que os dados brutos precisem ser compartilhados. Em um Fed-IDS, cada cliente  por exemplo, um roteador, sensor IoT ou servidor de borda  treina localmente um modelo com seus próprios registros de tráfego e envia apenas parâmetros ou gradientes ao servidor central. Esse servidor, por sua vez, realiza a agregação das atualizações e redistribui o modelo global atualizado a todos os participantes. Dessa forma, preserva-se a privacidade dos dados de rede, ao mesmo tempo em que se mantém a colaboração entre múltiplos domínios administrativos.
 
 Revisões recentes reforçam o potencial dessa abordagem. Hernandez-Ramos et al. \cite{hernandez2023surveyfedids} apresentaram uma análise sistemática do uso de FL em IDS, destacando ganhos de privacidade e limitações de desempenho. Belenguer et al. \cite{belenguer2025surveyfedids} ampliaram a discussão ao sistematizar os trabalhos aplicados em diferentes datasets clássicos, como CIC-IDS2017 e UNSW-NB15. Além disso, Aouedi et al. \cite{aouedi2023blockchainids} exploraram a integração de blockchain com Fed-IDS, propondo maior confiabilidade nas trocas de parâmetros, enquanto Javeed et al. \cite{javeed2024zerotrust} propuseram arquiteturas baseadas em \textit{zero-trust} para aumentar a robustez contra ataques internos. Esses esforços demonstram a relevância e a maturidade do campo, ao mesmo tempo em que evidenciam lacunas relacionadas a ataques de privacidade, como os MIA, ainda pouco explorados em profundidade no domínio de Fed-IDS.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.5\linewidth]{Figura-9.png}
-    \caption{Arquitetura conceitual de um \textit{Federated Intrusion Detection System} (Fed-IDS). Fonte: elaborado pela autora.}
+    \caption{Arquitetura conceitual de um Fed-IDS. Fonte: elaborado pela autora.}
     \label{fig:fedids}
 \end{figure}
 \subsection{Defesas Híbridas: \textit{Differential Privacy}, \textit{AdaMixup} e Compressão de Gradientes}
@@ -1130,7 +1176,7 @@ Os ataques de inferência de pertencimento revelam vulnerabilidades críticas no
     \label{fig:comparativo_defesas}
 \end{figure}
 \subsubsection{\textbf{Differential Privacy (DP-SGD)}}
-A privacidade diferencial constitui o arcabouço teórico mais difundido para a proteção de dados em aprendizado de máquina. Introduzida no contexto de redes neurais por Abadi et al. \cite{abadi2016dpsgd}, a técnica conhecida como \textit{Differentially Private Stochastic Gradient Descent} (DP-SGD) adiciona ruído calibrado aos gradientes e aplica mecanismos de \textit{clipping} às atualizações, limitando a influência de cada amostra individual sobre o modelo final. Embora eficaz, trabalhos como Bagdasaryan e Shmatikov \cite{bagdasaryan2019dpimpact} mostram que a aplicação de DP pode impactar desproporcionalmente a acurácia em cenários de dados não balanceados, exigindo calibragem cuidadosa do parâmetro $\epsilon$.
+A privacidade diferencial constitui o arcabouço teórico mais difundido para a proteção de dados em aprendizado de máquina. Introduzida no contexto de redes neurais por Abadi et al. \cite{abadi2016dpsgd}, o DP-SGD adiciona ruído calibrado aos gradientes e aplica mecanismos de \textit{clipping} às atualizações, limitando a influência de cada amostra individual sobre o modelo final. Embora eficaz, trabalhos como Bagdasaryan e Shmatikov \cite{bagdasaryan2019dpimpact} mostram que a aplicação de DP pode impactar desproporcionalmente a acurácia em cenários de dados não balanceados, exigindo calibragem cuidadosa do parâmetro $\epsilon$.
 
 \subsubsection{\textbf{AdaMixup e regularização por mistura de dados}}
 Outra linha de defesa consiste em utilizar estratégias de regularização que dificultem a memorização de exemplos específicos. O AdaMixup, inspirado em técnicas de \textit{data augmentation}, cria combinações lineares dinâmicas de exemplos durante o treinamento, reduzindo a exposição de instâncias individuais e mitigando a eficácia dos MIA. Trabalhos recentes exploram essa abordagem em contextos federados, apontando ganhos de robustez em cenários \textit{non-IID}. Li et al. \cite{li2023gradientpruning}, por exemplo, exploram estratégias adaptativas de poda de gradientes combinadas com mecanismos de privacidade para reduzir o vazamento de informações sensíveis.
@@ -1144,9 +1190,9 @@ A compressão e a quantização de gradientes surgem como defesas complementares
     \caption{\textit{Pipeline} conceitual de defesas híbridas em Fed-IDS. Combinação de DP-SGD, \textit{AdaMixup} e compressão de gradientes para mitigar ataques de inferência de pertencimento preservando a utilidade do modelo. Fonte: elaborado pela autora.}
     \label{fig:defesas_hibridas}
 \end{figure}
-Este capítulo apresentou a fundamentação teórica que sustenta a presente pesquisa, organizada em quatro eixos principais. Inicialmente, discutiu-se o \textit{Federated Learning}, destacando seus algoritmos fundacionais  como o FedAvg, o FedProx, o SCAFFOLD e o FedOpt  e enfatizando como a descentralização do treinamento visa conciliar eficiência e privacidade em cenários de dados distribuídos. Em seguida, abordaram-se os \textit{Membership Inference Attacks} (MIA), descrevendo seus conceitos, tipologias, avanços recentes, métricas de avaliação e implicações práticas, particularmente em ambientes \textit{white-box} e com dados heterogêneos, nos quais a vulnerabilidade é potencializada.
+Este capítulo apresentou a fundamentação teórica que sustenta a presente pesquisa, organizada em quatro eixos principais. Inicialmente, discutiu-se o \textit{Federated Learning}, destacando seus algoritmos fundacionais  como o FedAvg, o FedProx, o SCAFFOLD e o FedOpt  e enfatizando como a descentralização do treinamento visa conciliar eficiência e privacidade em cenários de dados distribuídos. Em seguida, abordaram-se os MIA, descrevendo seus conceitos, tipologias, avanços recentes, métricas de avaliação e implicações práticas, particularmente em ambientes \textit{white-box} e com dados heterogêneos, nos quais a vulnerabilidade é potencializada.
 
-Nessa seção, explorou-se a evolução dos \textit{Intrusion Detection Systems} (IDS) e sua adaptação para ambientes federados. O Fed-IDS foi apresentado como uma abordagem promissora para lidar com os desafios de privacidade e escalabilidade em redes complexas, mas também como um alvo de novos riscos decorrentes da exposição a ataques de inferência. Trabalhos correlatos reforçam a relevância da integração entre FL e IDS, ao mesmo tempo em que apontam lacunas de pesquisa no que se refere à análise sistemática de vulnerabilidades a MIA nesse contexto.
+Nessa seção, explorou-se a evolução dos IDS e sua adaptação para ambientes federados. O Fed-IDS foi apresentado como uma abordagem promissora para lidar com os desafios de privacidade e escalabilidade em redes complexas, mas também como um alvo de novos riscos decorrentes da exposição a ataques de inferência. Trabalhos correlatos reforçam a relevância da integração entre FL e IDS, ao mesmo tempo em que apontam lacunas de pesquisa no que se refere à análise sistemática de vulnerabilidades a MIA nesse contexto.
 
 Por fim, foram discutidas as principais estratégias de defesa, com ênfase em abordagens híbridas que combinam privacidade diferencial, regularização por mistura de dados e compressão de gradientes. Essas técnicas foram analisadas como alternativas viáveis para equilibrar os objetivos de privacidade e utilidade em Fed-IDS, embora tragam consigo desafios adicionais, como impacto em acurácia, custo computacional e calibragem de parâmetros de segurança.
 
@@ -1155,11 +1201,11 @@ De forma geral, este capítulo evidenciou que o Aprendizado Federado, apesar de 
 \chapter{Trabalhos Recentes}
 \label{sec:trabalhos_recentes}
 
-O tema da privacidade em aprendizado de máquina, particularmente no contexto do \textit{Federated Learning} (FL), tem atraído crescente atenção da comunidade científica. Nos últimos cinco anos, a literatura avançou em três direções principais:
+O tema da privacidade em aprendizado de máquina, particularmente no contexto do \textit{Federated Learning}, tem atraído crescente atenção da comunidade científica. Nos últimos cinco anos, a literatura avançou em três direções principais:
 \begin{enumerate}[label=(\Roman*)]
-    \item Aprimoramento dos \textit{Intrusion Detection Systems} (IDS) tradicionais baseados em aprendizado de máquina;
+    \item Aprimoramento dos IDS tradicionais baseados em aprendizado de máquina;
     \item Integração do FL em sistemas de detecção de intrusões (Fed-IDS);
-    \item Desenvolvimento de defesas híbridas contra ataques de inferência de pertencimento (MIA).
+    \item Desenvolvimento de defesas híbridas contra ataques de inferência de pertencimento.
 \end{enumerate}
 
 Este capítulo revisa trabalhos recentes em cada uma dessas frentes, destacando contribuições relevantes, tendências observadas e lacunas que motivam a presente pesquisa.
@@ -1167,7 +1213,7 @@ Este capítulo revisa trabalhos recentes em cada uma dessas frentes, destacando 
 \subsection{Evolução dos IDS Tradicionais}
 \label{subsec:evolucao_ids_tradicionais}
 
-Os \textit{Intrusion Detection Systems} (IDS) baseados em aprendizado de máquina centralizado constituem a primeira geração de soluções que buscaram superar as limitações dos mecanismos tradicionais baseados apenas em assinaturas ou estatísticas manuais. A partir de 2020, observou-se um avanço expressivo em duas frentes principais: o uso de arquiteturas profundas, como redes convolucionais aplicadas à modelagem de tráfego \cite{tang2022fedids}, e a aplicação de técnicas de \textit{ensemble learning}, capazes de aumentar a robustez e a taxa de detecção em diferentes datasets \cite{lucas2023ensembleids}. 
+Os IDS baseados em aprendizado de máquina centralizado constituem a primeira geração de soluções que buscaram superar as limitações dos mecanismos tradicionais baseados apenas em assinaturas ou estatísticas manuais. A partir de 2020, observou-se um avanço expressivo em duas frentes principais: o uso de arquiteturas profundas, como redes convolucionais aplicadas à modelagem de tráfego \cite{tang2022fedids}, e a aplicação de técnicas de \textit{ensemble learning}, capazes de aumentar a robustez e a taxa de detecção em diferentes datasets \cite{lucas2023ensembleids}. 
 
 Apesar desses avanços, tais abordagens mantêm a limitação estrutural da centralização: todos os dados de tráfego precisam ser coletados e processados em um único ponto. Essa característica, embora facilite o treinamento, gera riscos relevantes de privacidade e implica desafios de escalabilidade em redes modernas. Estudos recentes também evidenciam vulnerabilidades adicionais, como a possibilidade de reconstrução de dados a partir de gradientes em cenários centralizados \cite{yang2023deepleakage}, reforçando a exposição de informações sensíveis.
 
@@ -1205,7 +1251,7 @@ Belenguer et al. \cite{belenguer2025surveyfedids} & 2025 & Survey comparativo (c
 \subsection{Integração de FL em IDS (Fed-IDS)}
 \label{subsec:fed_ids}
 
-A incorporação do \textit{Federated Learning} (FL) a sistemas de detecção de intrusões (IDS) emerge como resposta direta às limitações do paradigma centralizado em cenários de redes distribuídas e sensíveis à privacidade. Em vez de consolidar tráfego de rede e metadados em um único repositório, o Fed-IDS permite que domínios administrativos distintos treinem modelos localmente e compartilhem apenas atualizações de parâmetros. Revisões sistemáticas recentes consolidam essa trajetória. Hernandez-Ramos et al. \cite{hernandez2023surveyfedids} apresentam um mapeamento do campo, evidenciando benefícios de privacidade e de escalabilidade, porém apontando desafios de heterogeneidade estatística, coordenação entre clientes e ausência de protocolos padronizados para avaliação de privacidade. Em perspectiva mais atualizada, Belenguer et al. \cite{belenguer2025surveyfedids} registram a predominância de datasets como CIC-IDS2017, UNSW-NB15 e Bot-IoT e reforçam a carência de auditorias explícitas a \textit{Membership Inference Attacks} (MIA) no contexto de Fed-IDS.
+A incorporação do \textit{Federated Learning} a sistemas de detecção de intrusões emerge como resposta direta às limitações do paradigma centralizado em cenários de redes distribuídas e sensíveis à privacidade. Em vez de consolidar tráfego de rede e metadados em um único repositório, o Fed-IDS permite que domínios administrativos distintos treinem modelos localmente e compartilhem apenas atualizações de parâmetros. Revisões sistemáticas recentes consolidam essa trajetória. Hernandez-Ramos et al. \cite{hernandez2023surveyfedids} apresentam um mapeamento do campo, evidenciando benefícios de privacidade e de escalabilidade, porém apontando desafios de heterogeneidade estatística, coordenação entre clientes e ausência de protocolos padronizados para avaliação de privacidade. Em perspectiva mais atualizada, Belenguer et al. \cite{belenguer2025surveyfedids} registram a predominância de datasets como CIC-IDS2017, UNSW-NB15 e Bot-IoT e reforçam a carência de auditorias explícitas a MIA no contexto de Fed-IDS.
 
 No nível de propostas arquiteturais, a integração com tecnologias de confiança e trilhas de auditoria tem sido explorada para mitigar riscos do canal e de clientes maliciosos. Aouedi et al. \cite{aouedi2023blockchainids} propõem o F-BIDS, combinando FL com \textit{blockchain} para assegurar integridade e rastreabilidade das atualizações; Javeed et al. \cite{javeed2024zerotrust} avançam com o paradigma \textit{zero-trust}, reduzindo a dependência de pressupostos fortes sobre a benignidade dos participantes. Em paralelo, trabalhos voltados à operação prática do Fed-IDS enfrentam desafios de dinâmica de tráfego, mudança de conceito e recursos computacionais restritos: há investigações em \textit{continual learning} \cite{chetouane2025continualfedids}, transferência federada em borda \cite{raja2024transferfedids}, e arranjos específicos para IoT \cite{alshammari2024springerids,mazid2025flidpp,qiu2025fedaware}.
 
@@ -1314,7 +1360,7 @@ Ni et al. \cite{niu2025dualdefense} & 2025 & Defesa dual  & Combina exclusão pr
 \chapter{Discussões e Padrões em Aberto}
 \label{sec:discussoes_aberto}
 
-A revisão conduzida nos capítulos anteriores evidenciou avanços relevantes em \textit{Intrusion Detection Systems} (IDS), \textit{Federated Learning} (FL) e ataques de inferência de pertencimento (\textit{Membership Inference Attacks} – MIA), além de um conjunto diversificado de estratégias de mitigação. Contudo, ao analisar criticamente a literatura, emergem lacunas estruturais e padrões recorrentes que limitam a consolidação de soluções práticas, seguras e escaláveis. Este capítulo organiza tais questões em eixos temáticos, de forma a delinear os principais desafios em aberto e apontar direções para pesquisas futuras.
+A revisão conduzida nos capítulos anteriores evidenciou avanços relevantes em IDS, \textit{Federated Learning} e ataques de inferência de pertencimento, além de um conjunto diversificado de estratégias de mitigação. Contudo, ao analisar criticamente a literatura, emergem lacunas estruturais e padrões recorrentes que limitam a consolidação de soluções práticas, seguras e escaláveis. Este capítulo organiza tais questões em eixos temáticos, de forma a delinear os principais desafios em aberto e apontar direções para pesquisas futuras.
 
 \section{Heterogeneidade de Dados e Robustez de Modelos}
 Grande parte dos estudos em FL, incluindo cenários de Fed-IDS, ainda se baseia em pressupostos simplificados de distribuição dos dados. A predominância de cenários \textit{IID} ignora a realidade de ambientes distribuídos, como redes IoT e arquiteturas de borda, onde o fenômeno \textit{non-IID} é regra e não exceção. Embora algoritmos como FedProx \cite{li2020fedprox} e SCAFFOLD \cite{karimireddy2020scaffold} avancem na mitigação do \textit{client drift}, permanece em aberto o desafio de garantir estabilidade e desempenho sob condições de alta heterogeneidade estatística. Isso é particularmente crítico em IDS, nos quais padrões de tráfego variam de forma dinâmica e adversarial.
@@ -1379,22 +1425,258 @@ A Figura \ref{fig:pipeline_fedids} sintetiza o fluxo conceitual da proposta dest
 Em suma, o campo de Fed-IDS encontra-se em um ponto de inflexão: há avanços sólidos em algoritmos, ataques e defesas, mas a ausência de padronização e a carência de auditorias sistemáticas limitam sua maturidade. Os próximos capítulos desta dissertação apresentam a proposta metodológica que busca responder a parte dessas lacunas, estruturando um protocolo experimental de auditoria de ataques de inferência de pertencimento em Fed-IDS.
 
 
-\section{Conclusões}
+\chapter{Auditoria Multidimensional de Privacidade em Modelos de Linguagem}
+\label{sec:auditoria_llm}
+
+Como contribuição preliminar desta dissertação, foi desenvolvido e submetido um \textit{framework} de auditoria multidimensional de privacidade aplicado a modelos de linguagem de grande escala (\textit{Large Language Models}, LLMs), publicado como artigo nos anais do CIARP 2026 (Pontara et al., 2026). Embora o foco principal desta dissertação seja a auditoria de Fed-IDS, o trabalho em LLMs valida a abordagem metodológica proposta e demonstra sua aplicabilidade em contextos complementares de aprendizado de máquina. A metodologia e os resultados apresentados neste capítulo fornecem subsídios diretos para a transposição do arcabouço de auditoria ao cenário federado de detecção de intrusões.
+
+\section{Motivação e Contextualização}
+
+Os modelos de linguagem treinados em grandes volumes de texto podem memorizar exemplos específicos do conjunto de treinamento, criando riscos concretos de privacidade~\cite{carlini2019secret}. Os ataques de inferência de pertencimento exploram esse comportamento para determinar se uma amostra foi utilizada durante o treinamento, constituindo uma ferramenta fundamental para auditoria de privacidade. Apesar dos avanços recentes, os protocolos de avaliação de MIA permanecem limitados em três aspectos: (i) dependência de métricas agregadas como AUC, que não indicam quais amostras são detectadas; (ii) avaliação de um único ataque em configuração restrita de modelo e \textit{dataset}; e (iii) ausência de quantificação da diversidade de detecção e da estabilidade das predições.
+
+\section{Arcabouço de Auditoria Multidimensional}
+\label{sec:framework_auditoria}
+
+O arcabouço proposto formula a auditoria de privacidade como um processo de avaliação multidimensional que analisa ataques de inferência de pertencimento além do desempenho agregado de discriminação. Dado um modelo alvo $M_\theta$, um conjunto de dados candidato $\mathcal{D}$ e uma família de ataques $\mathcal{F}$, o \textit{framework} avalia cinco dimensões complementares de exposição à privacidade:
+
+\begin{enumerate}[label=(\roman*)]
+    \item \textbf{Discriminação}: mede a capacidade de distinguir membros de não membros utilizando métricas como AUC, precisão, \textit{recall} e F1-\textit{score}.
+    \item \textbf{Cobertura}: mede a amplitude com que os ataques identificam amostras vulneráveis. Dois ataques podem alcançar desempenho de discriminação semelhante enquanto expõem subconjuntos substancialmente diferentes dos dados de treinamento.
+    \item \textbf{Estabilidade}: mede a consistência das predições em avaliações repetidas, utilizando a similaridade de Jaccard entre conjuntos de membros detectados.
+    \item \textbf{Sensibilidade}: mede como o desempenho do ataque varia conforme as condições experimentais, incluindo arquitetura do modelo, domínio do \textit{dataset} e nível de repetição de \textit{canaries}.
+    \item \textbf{Vulnerabilidade}: caracteriza quais amostras individuais são mais suscetíveis à exposição com base em propriedades textuais como raridade de \textit{tokens}, comprimento do texto e diferença de \textit{loss}.
+\end{enumerate}
+
+Essas dimensões proporcionam uma caracterização mais abrangente do vazamento de pertencimento do que métricas de discriminação agregadas isoladamente. O arcabouço avalia não apenas se os ataques são precisos, mas também se identificam as mesmas amostras vulneráveis, se permanecem estáveis entre execuções e se se comportam de forma consistente sob diferentes condições experimentais.
+
+\section{Estratégias de Ataque Avaliadas}
+
+Foram avaliadas seis estratégias de ataque, cada uma explorando características estatísticas distintas associadas à memorização:
+
+\begin{enumerate}[label=(\roman*)]
+    \item \textbf{Ataque baseado em \textit{loss}}: utiliza a entropia cruzada negativa como \textit{score} de pertencimento:
+    \begin{equation}
+    s_{\mathrm{loss}}(x) = \frac{1}{T-1}\sum_{t=2}^{T} \log P_{M_\theta}(x_t \mid x_{<t})
+    \end{equation}
+    onde $x_t$ denota o \textit{token} na posição $t$ e $P_{M_\theta}(x_t \mid x_{<t})$ é a probabilidade condicional atribuída pelo modelo alvo.
+
+    \item \textbf{\textit{Reference-gap}}: compara o modelo alvo com um modelo de referência pré-treinado:
+    \begin{equation}
+    s_{\mathrm{ref}}(x) = \ell_{M_\theta}(x) - \ell_{M_{\mathrm{ref}}}(x)
+    \end{equation}
+    onde $\ell_M(x)$ denota a \textit{log-likelihood} média por \textit{token} atribuída pelo modelo $M$.
+
+    \item \textbf{Min-K\%}: calcula a média das $k$ menores \textit{log-probabilidades} de \textit{tokens}, incorporando perturbação de vizinhança sobre $V=3$ variantes textuais.
+
+    \item \textbf{Min-K\%++}: aplica normalização por \textit{z-score}:
+    \begin{equation}
+    z_t = \frac{\ell_t - \mu_\ell}{\sigma_\ell}
+    \end{equation}
+    onde $\ell_t$ denota a \textit{log-probabilidade} do \textit{token} $x_t$, e $\mu_\ell$ e $\sigma_\ell$ correspondem à média e ao desvio padrão das \textit{log-probabilidades} na sequência.
+
+    \item \textbf{ReCaLL}: estima pertencimento por meio de \textit{log-likelihood} condicional relativa entre modelos alvo e de referência~\cite{xie2024recall}:
+    \begin{equation}
+    s_{\mathrm{recall}}(x) = \ell_{M_\theta}(x) - \ell_{M_{\mathrm{ref}}}(x)
+    \end{equation}
+
+    \item \textbf{LiRA}: computa um \textit{z-score} da \textit{loss} do modelo alvo contra distribuições de \textit{shadow models}~\cite{carlini2022firstprinciples}:
+    \begin{equation}
+    s_{\mathrm{lira}}(x) = -\frac{\mathrm{loss}_{M_\theta}(x) - \mu_{\mathrm{shadow}}(x)}{\sigma_{\mathrm{shadow}}(x)}
+    \end{equation}
+    onde $\mu_{\mathrm{shadow}}$ e $\sigma_{\mathrm{shadow}}$ são estimados a partir das \textit{losses} dos \textit{shadow models}.
+\end{enumerate}
+
+\section{Configuração Experimental}
+
+A avaliação foi conduzida sobre quatro modelos de linguagem: DistilGPT-2 (82M parâmetros), GPT-2 (124M), Pythia-160M (160M, EleutherAI) e OPT-125M (125M, Meta). Todos os modelos foram ajustados com taxa de aprendizado $5\times10^{-5}$, tamanho de \textit{batch} 4, duas épocas, comprimento de sequência 128, otimizador AdamW com decaimento de peso $10^{-2}$ e 10\% de \textit{warmup}.
+
+Os \textit{datasets} utilizados foram WikiText-2 ($\sim$2M \textit{tokens}), WikiText-103 ($\sim$103M \textit{tokens}) e OpenWebText (domínio web), com 4.000 textos de treinamento e 800 de avaliação por corpus.
+
+Para inserção de \textit{canaries}, foram utilizadas $n=25$ sequências sintéticas por \textit{dataset}, repetidas $r \in \{1, 2, 4, 8\}$ vezes, seguindo a metodologia de Carlini et al. (2019). A matriz experimental combina quatro modelos, três \textit{datasets} e quatro níveis de repetição, resultando em 48 configurações experimentais distintas e 288 avaliações de ataque.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\linewidth]{fig-1-pipeline.png}
+    \caption{\textit{Pipeline} de auditoria multidimensional proposto. O arcabouço orquestra 48 experimentos envolvendo quatro modelos, três \textit{datasets} e quatro níveis de repetição de \textit{canaries}. Fonte: elaborado pela autora.}
+    \label{fig:pipeline_ciarp}
+\end{figure}
+
+\section{Resultados Experimentais}
+
+\subsection{Desempenho Agregado dos Ataques}
+
+A Tabela~\ref{tab:aggregate_ciarp} apresenta o desempenho médio de todos os ataques nas 48 configurações experimentais.
+
+\begin{table}[H]
+\centering
+\caption{Desempenho agregado dos ataques nas 48 configurações experimentais.}
+\label{tab:aggregate_ciarp}
+\begin{tabular}{lcccc}
+\toprule
+\textbf{Ataque} & \textbf{AUC} & \textbf{F1} & \textbf{TPR@1\%} & \textbf{TPR@5\%} \\
+\midrule
+\textit{Loss}       & 0,816$\pm$0,085 & 0,801 & 0,129 & 0,278 \\
+\textit{Ref-gap}    & 0,842$\pm$0,082 & 0,851 & 0,202 & 0,303 \\
+Min-K\%    & 0,816$\pm$0,076 & 0,789 & 0,131 & 0,303 \\
+Min-K\%++  & 0,646$\pm$0,069 & 0,690 & 0,037 & 0,121 \\
+ReCaLL     & 0,867$\pm$0,071 & 0,866 & 0,204 & 0,336 \\
+LiRA       & 0,791$\pm$0,164 & 0,809 & 0,146 & 0,268 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+O ReCaLL alcançou a maior AUC média (0,867), seguido pelo \textit{reference-gap} (0,842), indicando a superioridade de ataques baseados em referência nos cenários de \textit{fine-tuning} avaliados. Em contraste, o Min-K\%++ obteve a menor AUC (0,646), enquanto o LiRA exibiu a maior variabilidade ($\pm$0,164). A análise estatística confirmou que o ReCaLL superou significativamente todos os demais ataques ($p < 0,001$, correção de Bonferroni).
+
+\subsection{Análise por Modelo}
+
+A Tabela~\ref{tab:model_ciarp} reporta a AUC média obtida por cada ataque nos modelos avaliados.
+
+\begin{table}[H]
+\centering
+\caption{AUC média por ataque e modelo de linguagem.}
+\label{tab:model_ciarp}
+\begin{tabular}{lcccccc}
+\toprule
+\textbf{Modelo} & \textbf{\textit{Loss}} & \textbf{\textit{Ref}} & \textbf{MK} & \textbf{MK++} & \textbf{ReC} & \textbf{LiRA} \\
+\midrule
+DistilGPT-2 & 0,720 & 0,826 & 0,738 & 0,588 & 0,846 & 0,834 \\
+GPT-2       & 0,739 & 0,820 & 0,750 & 0,591 & 0,843 & 0,838 \\
+Pythia-160M & 0,928 & 0,875 & 0,919 & 0,710 & 0,903 & 0,911 \\
+OPT-125M    & 0,856 & 0,852 & 0,846 & 0,691 & 0,879 & 0,576 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+O Pythia-160M demonstrou consistentemente a maior vulnerabilidade de pertencimento (AUC de até 0,928), indicando que o \textit{design} do \textit{tokenizer}, a composição do corpus de pré-treinamento e características arquiteturais influenciam conjuntamente os padrões de memorização. O OPT-125M exibiu comportamento anômalo com LiRA (0,576), provavelmente associado a distribuições de \textit{shadow models} com baixa variância.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.48\linewidth]{fig_02_auc_model.png}
+\hfill
+\includegraphics[width=0.48\linewidth]{fig_03_auc_dataset.png}
+\caption{\textit{Heatmaps} de AUC por ataque. (Esquerda) Análise por modelo: Pythia-160M exibe a maior vulnerabilidade. (Direita) Análise por \textit{dataset}: OpenWebText produz valores superiores para ataques baseados em referência. Fonte: elaborado pela autora.}
+\label{fig:heatmaps_ciarp}
+\end{figure}
+
+\subsection{Análise por \textit{Dataset}}
+
+A Tabela~\ref{tab:dataset_ciarp} reporta a AUC por \textit{dataset} e ataque. O OpenWebText produziu os maiores valores de AUC para ataques baseados em referência (0,949 com ReCaLL), enquanto WikiText-2 e WikiText-103 apresentaram resultados praticamente idênticos, confirmando que o domínio do corpus tem maior impacto na vulnerabilidade do que o tamanho do corpus sob condições fixas de \textit{fine-tuning}.
+
+\begin{table}[H]
+\centering
+\caption{AUC média por \textit{dataset} e ataque.}
+\label{tab:dataset_ciarp}
+\begin{tabular}{lcccccc}
+\toprule
+\textbf{\textit{Dataset}} & \textbf{\textit{Loss}} & \textbf{\textit{Ref}} & \textbf{MK} & \textbf{MK++} & \textbf{ReC} & \textbf{LiRA} \\
+\midrule
+WikiText-2   & 0,809 & 0,795 & 0,811 & 0,627 & 0,826 & 0,814 \\
+WikiText-103 & 0,809 & 0,795 & 0,812 & 0,629 & 0,826 & 0,815 \\
+OpenWebText  & 0,829 & 0,936 & 0,826 & 0,681 & 0,949 & 0,744 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Cobertura e Estabilidade}
+
+A Tabela~\ref{tab:coverage_ciarp} apresenta as métricas de cobertura e estabilidade. Os ataques \textit{Loss} e Min-K\% compartilham valores idênticos de AUC (0,816), porém identificam subconjuntos distintos de amostras de treinamento, demonstrando que ataques com desempenho discriminativo semelhante podem expor padrões de vulnerabilidade diferentes.
+
+\begin{table}[H]
+\centering
+\caption{Cobertura e estabilidade médias nas 48 configurações experimentais.}
+\label{tab:coverage_ciarp}
+\begin{tabular}{lccc}
+\toprule
+\textbf{Ataque} & \textbf{Cob. Membros} & \textbf{Cob. \textit{Canaries}} & \textbf{Estabilidade} \\
+\midrule
+\textit{Loss}       & 0,759 & 1,000 & 1,000 \\
+\textit{Ref-gap}    & 0,775 & 1,000 & 1,000 \\
+Min-K\%    & 0,764 & 0,998 & 0,898 \\
+Min-K\%++  & 0,621 & 0,721 & 1,000 \\
+ReCaLL     & 0,796 & 1,000 & 1,000 \\
+LiRA       & 0,711 & 1,000 & 1,000 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\linewidth]{fig_06_coverage.png}
+    \caption{Cobertura de \textit{canaries} versus cobertura de membros. Cinco ataques alcançam cobertura de \textit{canaries} próxima à perfeição; a cobertura de membros é consistentemente inferior. Fonte: elaborado pela autora.}
+    \label{fig:coverage_ciarp}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\linewidth]{fig_07_stability.png}
+    \caption{Estabilidade (similaridade de Jaccard) por ataque e \textit{dataset}. Ataques determinísticos alcançam estabilidade perfeita; Min-K\% apresenta leve variação devido a perturbações estocásticas. Fonte: elaborado pela autora.}
+    \label{fig:stability_ciarp}
+\end{figure}
+
+\subsection{Perfis Multidimensionais}
+
+A Figura~\ref{fig:radar_ciarp} apresenta os perfis radar de comportamento dos ataques por \textit{dataset}, sintetizando múltiplas dimensões de auditoria simultaneamente. O ReCaLL e o \textit{reference-gap} exibem os perfis mais consistentes, enquanto o Min-K\%++ mostra comportamento sistematicamente mais fraco em todas as dimensões avaliadas.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\linewidth]{fig_38_radar.png}
+    \caption{Perfis radar do comportamento dos ataques por \textit{dataset}. Cada polígono sintetiza múltiplas dimensões de auditoria, incluindo AUC, F1, detecção em baixo FPR, cobertura e estabilidade. Fonte: elaborado pela autora.}
+    \label{fig:radar_ciarp}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\linewidth]{fig_40_comprehensive.png}
+    \caption{Comparação abrangente das métricas de auditoria entre ataques. ReCaLL alcança o melhor desempenho geral, enquanto Min-K\%++ apresenta resultados consistentemente inferiores em múltiplas dimensões de avaliação. Fonte: elaborado pela autora.}
+    \label{fig:comprehensive_ciarp}
+\end{figure}
+
+\section{Discussão e Implicações para Fed-IDS}
+
+Os resultados experimentais indicam que a vulnerabilidade de pertencimento é fortemente influenciada pela interação entre arquitetura do modelo, domínio do \textit{dataset} e estratégia de ataque. O Pythia-160M consistentemente exibiu a maior suscetibilidade, enquanto o domínio do corpus (OpenWebText versus WikiText) demonstrou impacto maior na vulnerabilidade do que o tamanho do corpus isoladamente.
+
+Do ponto de vista metodológico, os achados demonstram que a AUC agregada isoladamente é insuficiente para auditoria de privacidade, uma vez que ataques com desempenho discriminativo semelhante podem detectar subconjuntos distintos de amostras vulneráveis. Dimensões complementares como cobertura, estabilidade e análise por amostra proporcionam uma caracterização substancialmente mais informativa do vazamento de pertencimento.
+
+Esses resultados possuem implicações diretas para a auditoria de Fed-IDS proposta nesta dissertação:
+
+\begin{enumerate}[label=(\roman*)]
+    \item A abordagem multidimensional será transposta para o contexto federado, avaliando como diferentes algoritmos de agregação (FedAvg, FedProx, SCAFFOLD, FedOpt) influenciam a vulnerabilidade a MIA em sistemas de detecção de intrusões.
+    \item A análise de cobertura e estabilidade será aplicada para verificar se ataques que funcionam bem em cenários centralizados mantêm eficácia em configurações federadas com dados heterogêneos (\textit{non-IID}).
+    \item As defesas híbridas (DP-SGD, \textit{AdaMixup}, compressão de gradientes) serão avaliadas utilizando as cinco dimensões do arcabouço proposto, permitindo quantificar o \textit{trade-off} entre privacidade, utilidade e custo computacional em Fed-IDS.
+\end{enumerate}
+
+A validação do arcabouço em modelos de linguagem fornece evidências de sua aplicabilidade e robustez, constituindo a base metodológica para a extensão ao cenário federado de detecção de intrusões.
+
+
+\chapter{Conclusões Parciais e Cronograma}
+\label{sec:conclusoes_cronograma}
+
+\section{Conclusões Parciais}
 \label{sec:conclusoes}
 
-Este trabalho realizou uma revisão sistemática e analítica sobre o estado da arte em segurança e privacidade aplicadas ao \textit{Federated Intrusion Detection System} (Fed-IDS), com ênfase na detecção e mitigação de \textit{Membership Inference Attacks} (MIA). A investigação permitiu identificar padrões, lacunas e tendências que moldam o atual panorama da pesquisa em aprendizado federado voltado à cibersegurança.
+Este trabalho realizou uma revisão sistemática e analítica sobre o estado da arte em segurança e privacidade aplicadas ao Fed-IDS, com ênfase na detecção e mitigação de MIA. A investigação permitiu identificar padrões, lacunas e tendências que moldam o atual panorama da pesquisa em aprendizado federado voltado à cibersegurança.
 
-Entre os principais achados, observou-se que a literatura converge para três frentes complementares: (i) aprimoramento da privacidade via mecanismos de ruído e regularização (como DP-SGD e dropout diferencial); (ii) uso crescente de estratégias híbridas, que combinam defesas complementares em múltiplos níveis; e (iii) carência de padronização tanto em benchmarks quanto em métricas de avaliação da privacidade. Essa ausência de uniformização metodológica dificulta a reprodutibilidade dos resultados e impede comparações precisas entre diferentes abordagens.
+Entre os principais achados, observou-se que a literatura converge para três frentes complementares: (i) aprimoramento da privacidade via mecanismos de ruído e regularização (como DP-SGD e \textit{dropout} diferencial); (ii) uso crescente de estratégias híbridas, que combinam defesas complementares em múltiplos níveis; e (iii) carência de padronização tanto em \textit{benchmarks} quanto em métricas de avaliação da privacidade. Essa ausência de uniformização metodológica dificulta a reprodutibilidade dos resultados e impede comparações precisas entre diferentes abordagens.
 
-Como contribuição teórica, este estudo sistematizou as evidências e delineou um \textbf{framework conceitual de auditoria e mitigação em Fed-IDS}, representado na Figura~\ref{fig:pipeline_fedids}. O modelo propõe a integração entre auditoria adversarial (via ataques LiRA), defesas híbridas (DP-SGD, AdaMixup e compressão de gradientes) e análise empírica do \textit{trade-off} entre privacidade e utilidade, constituindo uma base metodológica sólida para futuras implementações experimentais.
+Como contribuição teórica, este estudo sistematizou as evidências e delineou um \textit{framework} conceitual de auditoria e mitigação em Fed-IDS, representado na Figura~\ref{fig:pipeline_fedids}. O modelo propõe a integração entre auditoria adversarial (via ataques LiRA e variantes), defesas híbridas (DP-SGD, \textit{AdaMixup} e compressão de gradientes) e análise empírica do \textit{trade-off} entre privacidade e utilidade, constituindo uma base metodológica sólida para futuras implementações experimentais.
 
-Do ponto de vista prático, a revisão reforça a urgência de estabelecer \textbf{benchmarks públicos e métricas padronizadas de privacidade} para sistemas federados de detecção de intrusões. Tal padronização é essencial para a maturidade científica do campo e para o avanço de sistemas auditáveis e confiáveis em ambientes distribuídos.
+Adicionalmente, a validação do arcabouço de auditoria multidimensional em modelos de linguagem (Capítulo~\ref{sec:auditoria_llm}) demonstrou a viabilidade e a robustez da abordagem proposta, com resultados publicados no CIARP 2026. Esse trabalho evidenciou que a AUC agregada é insuficiente para caracterizar riscos de privacidade, motivando a adoção de dimensões complementares como cobertura, estabilidade e vulnerabilidade por amostra.
 
-Como perspectivas futuras, pretende-se evoluir o \textit{framework} aqui delineado para uma implementação experimental em nuvem, utilizando \textit{datasets} abertos e simulações de ataques reais. Essa etapa permitirá quantificar empiricamente a eficácia das defesas híbridas propostas e avaliar a estabilidade do \textit{trade-off} entre privacidade, desempenho e custo computacional. Espera-se que essa abordagem sirva de base para o desenvolvimento de mecanismos de auditoria automatizada em ambientes de aprendizado federado voltados à cibersegurança.
+Do ponto de vista prático, a revisão reforça a urgência de estabelecer \textit{benchmarks} públicos e métricas padronizadas de privacidade para sistemas federados de detecção de intrusões. Tal padronização é essencial para a maturidade científica do campo e para o avanço de sistemas auditáveis e confiáveis em ambientes distribuídos.
 
+\section{Próximos Passos}
 
-\chapter{Cronograma}
-\label{sec:cronograma}
+As etapas subsequentes desta pesquisa compreendem:
+
+\begin{enumerate}[label=(\roman*)]
+    \item Transposição do arcabouço de auditoria multidimensional para o cenário federado, com implementação de \textit{baseline} Fed-IDS utilizando FedAvg, FedProx, SCAFFOLD e FedOpt sobre \textit{datasets} de detecção de intrusões (CIC-IDS2017, UNSW-NB15).
+    \item Implementação e avaliação dos seis ataques de inferência de pertencimento no contexto federado, analisando o impacto da heterogeneidade de dados (\textit{non-IID}) e do número de clientes.
+    \item Integração e avaliação de defesas híbridas (DP-SGD combinado com regularização e compressão de gradientes), quantificando o \textit{trade-off} entre privacidade, utilidade e custo computacional.
+    \item Análise comparativa dos resultados e redação final da dissertação.
+\end{enumerate}
+
+\section{Cronograma}
+\label{sec:cronograma_tab}
 
 O presente cronograma descreve as atividades planejadas entre dezembro de 2025, logo após a entrega inicial desta etapa, até novembro de 2026, mês previsto para a qualificação. As tarefas foram organizadas de modo a alinhar a fundamentação teórica e os trabalhos correlatos discutidos nos capítulos anteriores com a implementação experimental, a auditoria de ataques e a análise crítica dos resultados.  
 
