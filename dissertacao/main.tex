@@ -1196,9 +1196,9 @@ Nessa seção, explorou-se a evolução dos IDS e sua adaptação para ambientes
 
 Por fim, foram discutidas as principais estratégias de defesa, com ênfase em abordagens híbridas que combinam privacidade diferencial, regularização por mistura de dados e compressão de gradientes. Essas técnicas foram analisadas como alternativas viáveis para equilibrar os objetivos de privacidade e utilidade em Fed-IDS, embora tragam consigo desafios adicionais, como impacto em acurácia, custo computacional e calibragem de parâmetros de segurança.
 
-De forma geral, este capítulo evidenciou que o Aprendizado Federado, apesar de ser uma ferramenta poderosa para cenários distribuídos e sensíveis, permanece suscetível a ataques de inferência de pertencimento, sobretudo em aplicações críticas como sistemas de detecção de intrusões. Essa constatação reforça a importância da investigação proposta nesta dissertação, que busca auditar a vulnerabilidade de Fed-IDS a MIA e avaliar a eficácia de defesas híbridas no equilíbrio entre privacidade, desempenho e custo. O próximo capítulo, dedicado à discussão de padrões em aberto, aprofunda essa análise, destacando as principais lacunas identificadas e os caminhos para a contribuição desta pesquisa.
+De forma geral, este capítulo evidenciou que o Aprendizado Federado, apesar de ser uma ferramenta poderosa para cenários distribuídos e sensíveis, permanece suscetível a ataques de inferência de pertencimento, sobretudo em aplicações críticas como sistemas de detecção de intrusões. Essa constatação reforça a importância da investigação proposta nesta dissertação, que busca auditar a vulnerabilidade de Fed-IDS a MIA e avaliar a eficácia de defesas híbridas no equilíbrio entre privacidade, desempenho e custo. As próximas seções, dedicadas aos trabalhos recentes e à discussão de padrões em aberto, aprofundam essa análise, destacando as principais lacunas identificadas e os caminhos para a contribuição desta pesquisa.
 
-\chapter{Trabalhos Recentes}
+\section{Trabalhos Recentes}
 \label{sec:trabalhos_recentes}
 
 O tema da privacidade em aprendizado de máquina, particularmente no contexto do \textit{Federated Learning}, tem atraído crescente atenção da comunidade científica. Nos últimos cinco anos, a literatura avançou em três direções principais:
@@ -1208,7 +1208,7 @@ O tema da privacidade em aprendizado de máquina, particularmente no contexto do
     \item Desenvolvimento de defesas híbridas contra ataques de inferência de pertencimento.
 \end{enumerate}
 
-Este capítulo revisa trabalhos recentes em cada uma dessas frentes, destacando contribuições relevantes, tendências observadas e lacunas que motivam a presente pesquisa.
+Esta seção revisa trabalhos recentes em cada uma dessas frentes, destacando contribuições relevantes, tendências observadas e lacunas que motivam a presente pesquisa.
 
 \subsection{Evolução dos IDS Tradicionais}
 \label{subsec:evolucao_ids_tradicionais}
@@ -1357,18 +1357,18 @@ Ni et al. \cite{niu2025dualdefense} & 2025 & Defesa dual  & Combina exclusão pr
 
 
 
-\chapter{Discussões e Padrões em Aberto}
+\section{Discussões e Padrões em Aberto}
 \label{sec:discussoes_aberto}
 
-A revisão conduzida nos capítulos anteriores evidenciou avanços relevantes em IDS, \textit{Federated Learning} e ataques de inferência de pertencimento, além de um conjunto diversificado de estratégias de mitigação. Contudo, ao analisar criticamente a literatura, emergem lacunas estruturais e padrões recorrentes que limitam a consolidação de soluções práticas, seguras e escaláveis. Este capítulo organiza tais questões em eixos temáticos, de forma a delinear os principais desafios em aberto e apontar direções para pesquisas futuras.
+A revisão conduzida nos capítulos anteriores evidenciou avanços relevantes em IDS, \textit{Federated Learning} e ataques de inferência de pertencimento, além de um conjunto diversificado de estratégias de mitigação. Contudo, ao analisar criticamente a literatura, emergem lacunas estruturais e padrões recorrentes que limitam a consolidação de soluções práticas, seguras e escaláveis. Este capítulo organiza tais questões em eixos temáticos, de forma a delinear os principais desafios em aberto que a proposta metodológica desta dissertação busca endereçar.
 
-\section{Heterogeneidade de Dados e Robustez de Modelos}
+\subsection{Heterogeneidade de Dados e Robustez de Modelos}
 Grande parte dos estudos em FL, incluindo cenários de Fed-IDS, ainda se baseia em pressupostos simplificados de distribuição dos dados. A predominância de cenários \textit{IID} ignora a realidade de ambientes distribuídos, como redes IoT e arquiteturas de borda, onde o fenômeno \textit{non-IID} é regra e não exceção. Embora algoritmos como FedProx \cite{li2020fedprox} e SCAFFOLD \cite{karimireddy2020scaffold} avancem na mitigação do \textit{client drift}, permanece em aberto o desafio de garantir estabilidade e desempenho sob condições de alta heterogeneidade estatística. Isso é particularmente crítico em IDS, nos quais padrões de tráfego variam de forma dinâmica e adversarial.
 
-\section{Superfície de Ataque Ampliada em Fed-IDS}
+\subsection{Superfície de Ataque Ampliada em Fed-IDS}
 A literatura recente reconhece que o paradigma federado expande a superfície de ataque ao expor gradientes, parâmetros locais e metadados de comunicação. Estudos como os de Nasr et al. \cite{nasr2019comprehensive} demonstram que ataques \textit{white-box}, passivos ou ativos, exploram diretamente tais sinais. Entretanto, poucos trabalhos aplicam auditorias sistemáticas a Fed-IDS, sobretudo considerando a especificidade de tráfego de rede e a variação de clientes em cada rodada. Essa ausência de benchmarks de segurança específicos para Fed-IDS constitui uma lacuna crítica, limitando a avaliação comparativa de riscos.
 
-\section{Protocolos Experimentais Fragmentados}
+\subsection{Protocolos Experimentais Fragmentados}
 Outro padrão identificado é a ausência de protocolos experimentais padronizados. Há forte dependência de datasets legados, como CIC-IDS2017 e UNSW-NB15, os quais, apesar de úteis, já não refletem integralmente a complexidade de tráfego em redes modernas. Revisões recentes \cite{belenguer2025surveyfedids} destacam a carência de protocolos que estratifiquem resultados de forma consistente segundo fatores como:
 \begin{enumerate}[label=(\alph*)]
     \item grau de heterogeneidade dos dados locais;
@@ -1378,7 +1378,7 @@ Outro padrão identificado é a ausência de protocolos experimentais padronizad
 \end{enumerate}
 Sem essa padronização, comparações entre propostas tornam-se incompletas e a evolução do campo perde em cumulatividade científica.
 
-\section{Limitações das Defesas Isoladas}
+\subsection{Limitações das Defesas Isoladas}
 As defesas existentes contra MIA no contexto federado concentram-se em mecanismos isolados, como privacidade diferencial \cite{abadi2016dpsgd}, compressão de gradientes \cite{wu2023pruningfl,wei2024gradientsparsification} ou agregações robustas \cite{yin2024miafl}. Ainda que eficazes em cenários específicos, tais técnicas apresentam limitações significativas:
 \begin{itemize}
     \item a privacidade diferencial impõe perdas de acurácia, particularmente em cenários de dados heterogêneos \cite{bagdasaryan2019dpimpact};
@@ -1387,13 +1387,13 @@ As defesas existentes contra MIA no contexto federado concentram-se em mecanismo
 \end{itemize}
 Esse quadro sugere a necessidade de abordagens híbridas que combinem diferentes mecanismos, conciliando robustez, privacidade e utilidade em Fed-IDS.
 
-\section{Carência de Auditorias sobre Impacto Prático}
+\subsection{Carência de Auditorias sobre Impacto Prático}
 Apesar da riqueza teórica e experimental, observa-se escassez de estudos que avaliem os impactos práticos de ataques e defesas em cenários reais. Poucos trabalhos investigam o custo computacional, energético e de comunicação associados à aplicação simultânea de defesas em ambientes IoT ou SDN. Da mesma forma, há lacunas quanto ao impacto regulatório e ético da exposição a ataques de inferência, especialmente em setores críticos como saúde e finanças. Esses aspectos precisam ser incorporados a futuros protocolos experimentais para que os resultados extrapolem o campo acadêmico e se tornem aplicáveis na prática.
 
-\section{Síntese das Lacunas e Oportunidades}
+\subsection{Síntese das Lacunas e Oportunidades}
 Além dos desafios já descritos, destacam-se duas lacunas estruturais que esta pesquisa pretende abordar futuramente. A primeira refere-se à \textbf{escassez de benchmarks padronizados para avaliação de Fed-IDS}, o que limita a comparabilidade entre estudos e impede a construção de métricas reprodutíveis de vulnerabilidade e mitigação. A ausência de um repositório público que contemple cenários heterogêneos e adversariais específicos de detecção de intrusões federadas dificulta a validação empírica e o avanço cumulativo do campo. A segunda lacuna diz respeito à \textbf{inexistência de métricas padronizadas de privacidade em Aprendizado Federado}. Atualmente, os estudos empregam métricas distintas, como \textit{advantage}, AUC-ROC, ou TPR@FPR, sem consenso sobre qual quantifica de forma mais fidedigna o risco de inferência. Essa falta de uniformização torna a comparação entre defesas imprecisa e compromete a definição de parâmetros mínimos de segurança. A consolidação de benchmarks e métricas de privacidade unificadas representa, portanto, um passo essencial para a maturidade científica e prática de sistemas Fed-IDS.
 
-A Tabela~\ref{tab:discussoes_aberto} sintetiza os principais padrões em aberto identificados, relacionando-os a potenciais direções de pesquisa. Esse mapeamento serve como base para a formulação da proposta metodológica desenvolvida nos próximos capítulos.
+A Tabela~\ref{tab:discussoes_aberto} sintetiza os principais padrões em aberto identificados, relacionando-os a potenciais direções de pesquisa. Esse mapeamento serve como base para a formulação da proposta metodológica desenvolvida no próximo capítulo.
 
 \begin{table}[H]
 \centering
@@ -1422,10 +1422,10 @@ Impacto prático & Poucos estudos sobre custo energético, computacional e étic
 
 A Figura \ref{fig:pipeline_fedids} sintetiza o fluxo conceitual da proposta deste trabalho, representando a transição entre auditoria, defesa e mitigação. O \textit{pipeline} reflete o objetivo central de estabelecer uma metodologia sistemática para avaliar e reduzir riscos de inferência de pertencimento em sistemas Fed-IDS, mantendo o equilíbrio entre privacidade e desempenho. Essa visão integradora reforça a contribuição prática e científica do estudo, consolidando um arcabouço que pode ser adaptado a diferentes arquiteturas de aprendizado federado.
 
-Em suma, o campo de Fed-IDS encontra-se em um ponto de inflexão: há avanços sólidos em algoritmos, ataques e defesas, mas a ausência de padronização e a carência de auditorias sistemáticas limitam sua maturidade. Os próximos capítulos desta dissertação apresentam a proposta metodológica que busca responder a parte dessas lacunas, estruturando um protocolo experimental de auditoria de ataques de inferência de pertencimento em Fed-IDS.
+Em suma, o campo de Fed-IDS encontra-se em um ponto de inflexão: há avanços sólidos em algoritmos, ataques e defesas, mas a ausência de padronização e a carência de auditorias sistemáticas limitam sua maturidade. O próximo capítulo desta dissertação apresenta a proposta metodológica que busca responder a parte dessas lacunas, estruturando um protocolo experimental de auditoria de ataques de inferência de pertencimento em Fed-IDS.
 
 
-\chapter{Auditoria Multidimensional de Privacidade em Modelos de Linguagem}
+\chapter{Metodologia}
 \label{sec:auditoria_llm}
 
 Como contribuição preliminar desta dissertação, foi desenvolvido e submetido um \textit{framework} de auditoria multidimensional de privacidade aplicado a modelos de linguagem de grande escala (\textit{Large Language Models}, LLMs), publicado como artigo nos anais do CIARP 2026 (Pontara et al., 2026). Embora o foco principal desta dissertação seja a auditoria de Fed-IDS, o trabalho em LLMs valida a abordagem metodológica proposta e demonstra sua aplicabilidade em contextos complementares de aprendizado de máquina. A metodologia e os resultados apresentados neste capítulo fornecem subsídios diretos para a transposição do arcabouço de auditoria ao cenário federado de detecção de intrusões.
@@ -1500,6 +1500,11 @@ Para inserção de \textit{canaries}, foram utilizadas $n=25$ sequências sinté
     \caption{\textit{Pipeline} de auditoria multidimensional proposto. O arcabouço orquestra 48 experimentos envolvendo quatro modelos, três \textit{datasets} e quatro níveis de repetição de \textit{canaries}. Fonte: elaborado pela autora.}
     \label{fig:pipeline_ciarp}
 \end{figure}
+
+\chapter{Resultados Parciais}
+\label{sec:resultados_parciais}
+
+Este capítulo reúne os resultados parciais obtidos com a validação do arcabouço de auditoria multidimensional em modelos de linguagem, discute suas implicações para a auditoria de Fed-IDS e consolida as conclusões parciais, os próximos passos e o cronograma da pesquisa.
 
 \section{Resultados Experimentais}
 
@@ -1648,9 +1653,6 @@ Esses resultados possuem implicações diretas para a auditoria de Fed-IDS propo
 A validação do arcabouço em modelos de linguagem fornece evidências de sua aplicabilidade e robustez, constituindo a base metodológica para a extensão ao cenário federado de detecção de intrusões.
 
 
-\chapter{Conclusões Parciais e Cronograma}
-\label{sec:conclusoes_cronograma}
-
 \section{Conclusões Parciais}
 \label{sec:conclusoes}
 
@@ -1678,7 +1680,7 @@ As etapas subsequentes desta pesquisa compreendem:
 \section{Cronograma}
 \label{sec:cronograma_tab}
 
-O presente cronograma descreve as atividades planejadas entre dezembro de 2025, logo após a entrega inicial desta etapa, até novembro de 2026, mês previsto para a qualificação. As tarefas foram organizadas de modo a alinhar a fundamentação teórica e os trabalhos correlatos discutidos nos capítulos anteriores com a implementação experimental, a auditoria de ataques e a análise crítica dos resultados.  
+O presente cronograma descreve as atividades planejadas entre dezembro de 2025, logo após a entrega inicial desta etapa, até novembro de 2026. Nesse intervalo, a qualificação está prevista para julho de 2026 e a defesa da dissertação para novembro de 2026. As tarefas foram organizadas de modo a alinhar a fundamentação teórica e os trabalhos correlatos discutidos nas seções anteriores com a implementação experimental, a auditoria de ataques e a análise crítica dos resultados.  
 
 \begin{table}[H]
 \centering
@@ -1696,19 +1698,21 @@ O presente cronograma descreve as atividades planejadas entre dezembro de 2025, 
 
 Revisão da fundamentação teórica & X & X &   &   &   &   &   &   &   &   &   &   \\ \hline
 Levantamento e preparação de datasets & X & X & X &   &   &   &   &   &   &   &   &   \\ \hline
-Implementação de baseline Fed-IDS &   &   &   & X & X & X &   &   &   &   &   &   \\ \hline
-Implementação de ataques MIA &   &   &   & X & X &   & X &   &   &   &   &   \\ \hline
-Integração de defesas híbridas &   &   &   &   &   &   & X & X &   &   &   &   \\ \hline
-Execução de experimentos e coleta de métricas &   &   &   &   &   &   & X & X & X &   &   &   \\ \hline
-Análise crítica dos resultados   &   &   &   &   &   &   & X & X & X &   &   &   \\ \hline
-Redação da dissertação (metodologia/resultados) &   &   &   &   &   &   &   &   & X & X &   &   \\ \hline
-Revisão geral e ajustes para qualificação &   &   &   &   &   &   &   &   &   & X & X &   \\ \hline
-Defesa de qualificação &   &   &   &   &   &   &   &   &   &   &   & X \\ \hline
+Implementação de baseline Fed-IDS &   &   &   & X & X &   &   &   &   &   &   &   \\ \hline
+Implementação de ataques MIA &   &   &   &   & X & X &   &   &   &   &   &   \\ \hline
+Experimentos preliminares e coleta de métricas &   &   &   &   &   & X & X &   &   &   &   &   \\ \hline
+Redação parcial e ajustes para qualificação &   &   &   &   &   & X & X &   &   &   &   &   \\ \hline
+Qualificação &   &   &   &   &   &   &   & X &   &   &   &   \\ \hline
+Integração de defesas híbridas &   &   &   &   &   &   &   &   & X & X &   &   \\ \hline
+Execução de experimentos finais e análise crítica &   &   &   &   &   &   &   &   & X & X & X &   \\ \hline
+Redação final da dissertação &   &   &   &   &   &   &   &   &   & X & X &   \\ \hline
+Revisão final e preparação para defesa &   &   &   &   &   &   &   &   &   &   & X &   \\ \hline
+Defesa de mestrado &   &   &   &   &   &   &   &   &   &   &   & X \\ \hline
 
 \end{tabularx}
 \end{table}
 
-O cronograma demonstra a progressão lógica da pesquisa: primeiro consolida-se a base teórica e a infraestrutura experimental; em seguida, são conduzidas implementações de algoritmos e ataques; por fim, as defesas híbridas são avaliadas sob métricas rigorosas. Essa sequência garante alinhamento entre os objetivos da dissertação e as lacunas de pesquisa destacadas no Capítulo~\ref{sec:discussoes_aberto}.
+O cronograma demonstra a progressão lógica da pesquisa: primeiro consolida-se a base teórica e a infraestrutura experimental; em seguida, são conduzidas implementações de algoritmos e ataques; por fim, as defesas híbridas são avaliadas sob métricas rigorosas. Essa sequência garante alinhamento entre os objetivos da dissertação e as lacunas de pesquisa destacadas na seção~\ref{sec:discussoes_aberto}.
 
 
 
